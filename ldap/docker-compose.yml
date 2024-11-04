@@ -3,7 +3,7 @@ volumes:
     external: true
     name: ${STACK_NAME}-ldap-data 
   certs:
-    external:
+    external: true
     name: ${STACK_NAME}-certs
 
 networks:
