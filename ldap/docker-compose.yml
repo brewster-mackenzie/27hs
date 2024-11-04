@@ -1,0 +1,48 @@
+volumes:
+  ldap-data:
+    external: true
+    name: ${STACK_NAME}-ldap-data 
+  certs:
+    external:
+    name: ${STACK_NAME}-certs
+
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  openldap:
+    image: bitnami/openldap:2
+    container_name: ${STACK_NAME}-ldap
+    hostname: ldap
+    environment:
+      - LDAP_ROOT=${LDAP_ROOT}
+      - LDAP_ADMIN_DN=${LDAP_ADMIN_DN}
+      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME}
+      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD}
+      - LDAP_ENABLE_TLS=${LDAP_ENABLE_TLS}
+      - LDAP_TLS_CERT_FILE=${LDAP_TLS_CERT_FILE}
+      - LDAP_TLS_KEY_FILE=${LDAP_TLS_KEY_FILE}
+    networks:
+      - green
+    volumes:
+      - certs:/opt/bitnami/openldap/certs
+      - ldap-data:/bitnami/openldap
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: ${STACK_NAME}-ldap-admin
+    hostname: ldap-admin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS="ldap"
+      - PHPLDAPADMIN_HTTPS="false"
+    env_file:
+      - stack.env
+    networks:
+      - green
+    ports:
+      - ${PORTS_LDAP_ADMIN_HTTP}:80
+    depends_on:
+      - openldap
+    restart: unless-stopped

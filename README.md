@@ -1,2 +1,3 @@
 # 27hs
-27 High Street Web Services
+
+Docker files and static content for 27 High Street servers, including Gitea, Nextcloud and Paperless, among others.
