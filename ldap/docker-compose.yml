@@ -37,8 +37,6 @@ services:
     environment:
       - PHPLDAPADMIN_LDAP_HOSTS="ldap"
       - PHPLDAPADMIN_HTTPS="false"
-    env_file:
-      - stack.env
     networks:
       - green
     ports:
