@@ -14,7 +14,7 @@ services:
     networks:
       - green
     ports:
-      - ${PORTS_PORTAINER_HTTP}:8000
+      - ${PORTS_PORTAINER_HTTP}:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
