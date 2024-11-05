@@ -24,6 +24,7 @@ services:
       - LDAP_ENABLE_TLS=${LDAP_ENABLE_TLS}
       - LDAP_TLS_CERT_FILE=${LDAP_TLS_CERT_FILE}
       - LDAP_TLS_KEY_FILE=${LDAP_TLS_KEY_FILE}
+      - LDAP_TLS_CA_FILE=${LDAP_TLS_CA_FILE}
     networks:
       - green
     volumes:
