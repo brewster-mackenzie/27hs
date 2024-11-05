@@ -25,6 +25,7 @@ services:
     tty: true
     stdin_open: true
     cap_add:
+      - NET_ADMIN
       - NET_BIND_SERVICE
     networks:
       - green
