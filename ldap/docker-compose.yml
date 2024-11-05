@@ -24,7 +24,7 @@ services:
     networks:
       - green
     volumes:
-      - /docker/{STACK_NAME}/certs:/opt/bitnami/openldap/certs
+      - /docker/${STACK_NAME}/certs:/opt/bitnami/openldap/certs
       - data:/bitnami/openldap
 
   phpldapadmin:
