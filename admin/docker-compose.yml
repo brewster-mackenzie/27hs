@@ -1,5 +1,5 @@
 networks:
-  27hs:
+  green:
     external: true
     name: ${STACK_NAME}-green
 
