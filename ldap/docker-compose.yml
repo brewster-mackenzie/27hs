@@ -22,6 +22,10 @@ services:
       - LDAP_TLS_CA_FILE=${LDAP_TLS_CA_FILE}
       - LDAP_PORT_NUMBER=389
       - LDAP_LDAPS_PORT_NUMBER=636
+    tty: true
+    stdin_open: true
+    cap_add:
+      - CAP_NET_BIND_SERVICE
     networks:
       - green
     volumes:
