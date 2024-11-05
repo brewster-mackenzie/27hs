@@ -11,7 +11,6 @@ services:
     image: bitnami/openldap:2
     container_name: ${STACK_NAME}-ldap
     hostname: ldap
-    user: ${STACK_UID}:${STACK_GID}
     environment:
       - LDAP_ROOT=${LDAP_ROOT}
       - LDAP_ADMIN_DN=${LDAP_ADMIN_DN}
