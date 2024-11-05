@@ -1,7 +1,5 @@
 volumes:
-  ldap-data:
-    external: true
-    name: ${STACK_NAME}-ldap-data 
+  data:
   certs:
     external: true
     name: ${STACK_NAME}-certs
@@ -29,7 +27,7 @@ services:
       - green
     volumes:
       - certs:/opt/bitnami/openldap/certs
-      - ldap-data:/bitnami/openldap
+      - data:/bitnami/openldap
 
   phpldapadmin:
     image: osixia/phpldapadmin:latest

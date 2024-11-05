@@ -5,8 +5,6 @@ networks:
 
 volumes:
   portainer_data:
-    external: true
-    name: ${STACK_NAME}-portainer-data
 
 services:
   portainer:
