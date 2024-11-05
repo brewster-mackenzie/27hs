@@ -31,7 +31,7 @@ services:
     container_name: ${STACK_NAME}-ldap-admin
     hostname: ldap-admin
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=#PYTHON2BASH:[{'ldap': [{'server': [{'port': 1636}]}]}]
+      - "PHPLDAPADMIN_LDAP_HOSTS=[{'ldap': [{'server': [{'port': 1636}]}]}]"
       - PHPLDAPADMIN_HTTPS=false
     networks:
       - green
