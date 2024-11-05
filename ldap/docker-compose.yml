@@ -33,7 +33,7 @@ services:
     container_name: ${STACK_NAME}-ldap-admin
     hostname: ldap-admin
     environment:
-      - "PHPLDAPADMIN_LDAP_HOSTS=[{'ldap': [{'server': [{'port': 1636}]}]}]"
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
       - PHPLDAPADMIN_HTTPS=false
     networks:
       - green
