@@ -1,0 +1,26 @@
+networks:
+  27hs:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  portainer_data:
+    external: true
+    name: ${STACK_NAME}-portainer-data
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: ${STACK_NAME}-portainer
+    hostname: portainer
+    networks:
+      - green
+    ports:
+      - ${PORTS_PORTAINER_HTTP}:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: always
+
+
+
