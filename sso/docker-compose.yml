@@ -34,7 +34,8 @@ services:
       - ${PORTS_KEYCLOAK_HTTP}:8080
     command: start
     environment:
-      KC_HOSTNAME: keycloak
+      KC_REALM_NAME: ${STACK_NAME}
+      KC_HOSTNAME: https://sso.27hs.co.uk
       KC_HOSTNAME_PORT: 8080
       KC_HTTP_ENABLED: true
       KC_HEALTH_ENABLED: true
