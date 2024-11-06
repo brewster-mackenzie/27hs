@@ -1,0 +1,48 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  keycloak-pg-data:
+
+services:
+  postgres:
+    image: postgres:${KEYCLOAK_POSTGRES_VERSION}
+    container_name: ${STACK_NAME}-keycloak-pg
+    hostname: keycloak-pg
+    restart: unless-stopped
+    networks:
+      - green
+    healthcheck: 
+      test: ["CMD", "pg_isready", "-U", "keycloak"]
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KEYCLOAK_POSTGRES_PASSWORD}
+    volumes:
+      keycloak-pg-data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: ${STACK_NAME}-keycloak
+    hostname: keycloak
+    restart: unless-stopped
+    networks:
+      - green
+    ports:
+      - ${PORTS_KEYCLOAK_HTTP}:8080
+    command: start
+    environment:
+      KC_HOSTNAME: keycloak
+      KC_HOSTNAME_PORT: 8080
+      KC_HTTP_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: keycloak-pg
+      KC_DB_URL: jdbc:postgresql://postgres/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_POSTGRES_PASSWORD}
+    depends_on:
+      - keycloak-pg
