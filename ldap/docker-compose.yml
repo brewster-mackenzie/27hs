@@ -24,10 +24,7 @@ services:
       - LDAP_LDAPS_PORT_NUMBER=636
     tty: true
     stdin_open: true
-    sysctl:
-      net.ipv4.ip_unprivileged_port_start: 0
     cap_add:
-      - NET_ADMIN
       - NET_BIND_SERVICE
     networks:
       - green
