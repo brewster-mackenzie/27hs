@@ -9,7 +9,7 @@ volumes:
   jellyfin-cache:
   tubearchivist-media:
   tubearchivist-cache:
-  tubearchiviet-redis-data:
+  tubearchivist-redis-data:
   tubearchivist-elasticsearch-data:
 
 services:
