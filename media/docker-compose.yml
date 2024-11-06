@@ -1,0 +1,99 @@
+volumes:
+  jellyfin-media:
+  jellyfin-config:
+  jellyfin-cache:
+  tubearchivist-media:
+  tubearchivist-cache:
+  tubearchiviet-redis-data:
+  tubearchivist-elasticsearch-data:
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: ${STACK_NAME}-jellyfin
+    hostname: jellyfin
+    networks:
+      - green
+    ports:
+      - ${PORTS_MEDIA_JF_HTTP}:8096
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      # media mounts
+      - ${MEDIA_LIBRARY_MOUNT}:/media:ro 
+      - ${MEDIA_YOUTUBE_MOUNT}:/youtube:ro
+    restart: unless-stopped
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://${MEDIA_JF_HOST}/
+        #extra_hosts:
+        #  - 'host.docker.internal:host-gateway'
+
+  tubearchivist:
+    container_name: ${STACK_NAME}-tubearchivist
+    hostname: tubearchivist
+    restart: unless-stopped
+    image: bbilly1/tubearchivist
+    networks:
+      - green
+    ports:
+      - ${PORTS_MEDIA_TA_HTTP}:8000
+    volumes:
+      - tubearchivist-cache:/cache
+      # youtube mount
+      - /docker/${STACK_NAME}/mnt/media/:/youtube
+    environment:
+      - ES_URL=http://archivist-es:9200     # needs protocol e.g. http and port
+      - REDIS_HOST=archivist-redis          # don't add protocol
+        #- HOST_UID=1000
+        #- HOST_GID=1000
+      - TA_HOST=${MEDIA_TA_HOST}
+      - TA_USERNAME=admin           # your initial TA credentials
+      - TA_PASSWORD=${MEDIA_TA_PASSWORD}             # your initial TA credentials
+      - ELASTIC_PASSWORD=${MEDIA_TA_ES_PASSWORD} # set password for Elasticsearch
+      - TZ=Europe/London
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      - archivist-es
+      - archivist-redis
+
+  tubearchivist-redis:
+    image: redis/redis-stack-server
+    container_name: ${STACK_NAME}-tubearchivist-redis
+    hostname: tubearchivist-redis
+    restart: unless-stopped
+    networks:
+      - green
+    expose:
+      - "6379"
+    volumes:
+      - tubearchivist-redis-data:/data
+    depends_on:
+      - tubearchivist-es
+
+  tubearchivist-es:
+    image: bbilly1/tubearchivist-es         # only for amd64, or use official es 8.14.3
+    container_name: ${STACK_NAME}-tubearchivist-es
+    hostname: tubearchivist-es
+    restart: unless-stopped
+    networks:
+      - green
+    environment:
+      - "ELASTIC_PASSWORD=${MEDIA_TA_ES_PASSWORD}"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=true"
+      - "discovery.type=single-node"
+      - "path.repo=/usr/share/elasticsearch/data/snapshot"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - tubearchivist-elasticsearch-data:/usr/share/elasticsearch/data
+    expose:
+      - "9200"
+
