@@ -63,8 +63,8 @@ services:
       retries: 3
       start_period: 30s
     depends_on:
-      - archivist-es
-      - archivist-redis
+      - tubearchivist-es
+      - tubearchivist-redis
 
   tubearchivist-redis:
     image: redis/redis-stack-server
