@@ -1,3 +1,8 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
 volumes:
   jellyfin-media:
   jellyfin-config:
