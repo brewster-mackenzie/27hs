@@ -11,7 +11,6 @@ services:
     image: bitnami/openldap:2
     container_name: ${STACK_NAME}-ldap
     hostname: ldap
-    sysctl: net.ipv4.ip_unprivileged_port_start=0
     environment:
       - LDAP_ROOT=${LDAP_ROOT}
       - LDAP_ADMIN_DN=${LDAP_ADMIN_DN}
@@ -25,6 +24,8 @@ services:
       - LDAP_LDAPS_PORT_NUMBER=636
     tty: true
     stdin_open: true
+    sysctl:
+      net.ipv4.ip_unprivileged_port_start: 0
     cap_add:
       - NET_ADMIN
       - NET_BIND_SERVICE
