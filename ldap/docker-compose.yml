@@ -1,5 +1,6 @@
 volumes:
   data:
+  config:
 
 networks:
   green:
@@ -8,41 +9,53 @@ networks:
 
 services:
   openldap:
-    image: bitnami/openldap:2
+    image: osixia/openldap:1.5.0
     container_name: ${STACK_NAME}-ldap
     hostname: ldap
+    domainname: ${LDAP_DOMAIN}
     environment:
-      - LDAP_ROOT=${LDAP_ROOT}
-      - LDAP_ADMIN_DN=${LDAP_ADMIN_DN}
-      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME}
-      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD}
-      - LDAP_ENABLE_TLS=${LDAP_ENABLE_TLS}
-      - LDAP_TLS_CERT_FILE=${LDAP_TLS_CERT_FILE}
-      - LDAP_TLS_KEY_FILE=${LDAP_TLS_KEY_FILE}
-      - LDAP_TLS_CA_FILE=${LDAP_TLS_CA_FILE}
-      - LDAP_PORT_NUMBER=389
-      - LDAP_LDAPS_PORT_NUMBER=636
+      LDAP_LOG_LEVEL: "256"
+      LDAP_ORGANISATION: ${LDAP_ORGANISATION}
+      LDAP_DOMAIN: ${LDAP_DOMAIN}
+      LDAP_BASE_DN: ""
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+      LDAP_CONFIG_PASSWORD: ${LDAP_CONFIG_PASSWORD}
+      LDAP_READONLY_USER: "false"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_BACKEND: "mdb"
+      LDAP_TLS: "true"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt"
+      LDAP_TLS_KEY_FILENAME: "ldap.key"
+      LDAP_TLS_DH_PARAM_FILENAME: "dhparam.pem"
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+      LDAP_TLS_VERIFY_CLIENT: "demand"
+      LDAP_REPLICATION: "false"
+      KEEP_EXISTING_CONFIG: ${LDAP_KEEP_EXISTING_CONFIG}
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
     tty: true
     stdin_open: true
-    cap_add:
-      - NET_BIND_SERVICE
+    volumes:
+      - data:/var/lib/ldap
+      - config:/etc/ldap/slapd.d
+      - /docker/${STACK_NAME}/certs:/container/service/slapd/assets/certs/
     networks:
       - green
-    volumes:
-      - /docker/${STACK_NAME}/certs:/opt/bitnami/openldap/certs
-      - data:/bitnami/openldap
+    restart: always
 
   phpldapadmin:
     image: osixia/phpldapadmin:latest
     container_name: ${STACK_NAME}-ldap-admin
-    hostname: ldap-admin
+    hostname: ldap-admin 
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=ldap
-      - PHPLDAPADMIN_HTTPS=false
+      PHPLDAPADMIN_LDAP_HOSTS: ldap 
+      PHPLDAPADMIN_HTTPS: false 
     networks:
       - green
     ports:
-      - ${PORTS_LDAP_ADMIN_HTTP}:80
+      - "${PORTS_LDAP_ADMIN_HTTP}:80"
     depends_on:
       - openldap
     restart: unless-stopped
