@@ -20,8 +20,8 @@ services:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
       # media mounts
-      - ${MEDIA_LIBRARY_MOUNT}:/media:ro 
-      - ${MEDIA_YOUTUBE_MOUNT}:/youtube:ro
+      - ${MEDIA_LIBRARY_MOUNT_PATH}:/media:ro 
+      - ${MEDIA_YOUTUBE_MOUNT_PATH}:/youtube:ro
     restart: unless-stopped
     environment:
       - JELLYFIN_PublishedServerUrl=https://${MEDIA_JF_HOST}/
