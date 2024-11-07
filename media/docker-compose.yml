@@ -55,6 +55,7 @@ services:
       - TA_USERNAME=admin           # your initial TA credentials
       - TA_PASSWORD=${MEDIA_TA_PASSWORD}             # your initial TA credentials
       - TA_ENABLE_AUTH_PROXY=true
+      - TA_AUTH_PROXY_USERNAME_HEADER=HTTP_REMOTE_USER
       - ELASTIC_PASSWORD=${MEDIA_TA_ES_PASSWORD} # set password for Elasticsearch
       - TZ=Europe/London
     healthcheck:
