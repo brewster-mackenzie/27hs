@@ -51,6 +51,7 @@ services:
 
   oauth2proxy:
     image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    hostname: oauth2proxy
     environment:
       OAUTH2_PROXY_HTTP_ADDRESS: '0.0.0.0:7098'
       OAUTH2_PROXY_COOKIE_SECRET: 'br1stolstomp!'
