@@ -38,7 +38,7 @@ services:
       KC_HOSTNAME: https://sso.27hs.co.uk
       KC_HOSTNAME_PORT: 8080
       KC_HTTP_ENABLED: true
-      KC_HTTP_RELATIVE_PATH: /auth
+        #KC_HTTP_RELATIVE_PATH: /auth
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
