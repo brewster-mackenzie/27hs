@@ -64,6 +64,8 @@ services:
       OAUTH2_PROXY_OIDC_ISSUER_URL: 'https://auth.27hs.co.uk/realms/master'
       OAUTH2_PROXY_REDIRECT_URL: 'https://auth.27hs.co.uk/oauth2/callback'
       OAUTH2_PROXY_SET_XAUTHREQUEST: true
+    networks:
+      - green
     depends_on:
       - keycloak
     restart: unless-stopped
