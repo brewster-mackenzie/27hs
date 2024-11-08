@@ -13,12 +13,11 @@ services:
     hostname: filebrowser
     image: hurlenko/filebrowser
     restart: unless-stopped
-    environment:
-      - FB_BASEURL="https://files.27hs.co.uk"
+      #environment:
     networks:
       - green
     ports:
-      - ${PORTS_FILEBROWSER_HTTP}:80
+      - ${PORTS_FILEBROWSER_HTTP}:8080
     volumes:
       - fb-data:/data
       - fb-config:/config
