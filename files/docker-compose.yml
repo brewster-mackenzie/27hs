@@ -22,5 +22,5 @@ services:
     volumes:
       - fb-data:/data
       - fb-config:/config
-      - /docker/27hs/mnt:/mnt:ro
+      - /docker/27hs/mnt:/data/megalodon:ro
 
