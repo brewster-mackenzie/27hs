@@ -4,30 +4,23 @@ networks:
     name: ${STACK_NAME}-green
 
 volumes:
-    filestash: {}
+  fb-data:
+  fb-config:      
 
 services:
   app:
-    container_name: ${STACK_NAME}-filestash
-    hostname: filestash
-    image: machines/filestash
-    restart: always
+    container_name: ${STACK_NAME}-filebrowser
+    hostname: filebrowser
+    image: hurlenko/filebrowser
+    restart: unless-stopped
     environment:
-    - APPLICATION_URL=https://files.27hs.co.uk
-      #- GDRIVE_CLIENT_ID=<gdrive_client>
-      #- GDRIVE_CLIENT_SECRET=<gdrive_secret>
-      #- DROPBOX_CLIENT_ID=<dropbox_key>
-    - ONLYOFFICE_URL=http://filestash-oods
+      - FB_BASEURL="https://files.27hs.co.uk"
     networks:
       - green
     ports:
-    - ${PORTS_FILESTASH_HTTP}:8334
+      - ${PORTS_FILEBROWSER_HTTP}:8080
     volumes:
-    - filestash:/app/data/state/
-    - /docker/27hs/vol:/mnt/vol
+      - fb-data:/data
+      - fb-config:/config
+      - /docker/27hs/mnt:/mnt:ro
 
-  onlyoffice:
-    container_name: ${STACK_NAME}-filestash-oods
-    hostname: filestash-oods
-    image: onlyoffice/documentserver:7.1
-    restart: always
