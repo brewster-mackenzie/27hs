@@ -19,6 +19,8 @@ services:
              ln -s /data/search /search &&
              ln -s /data/sites /sites &&
              entrypoint.sh"
+    networks:
+      - green
     volumes:
       - jump-data:/data
     environment:
