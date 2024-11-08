@@ -11,7 +11,7 @@ services:
   app:
     container_name: ${STACK_NAME}-filebrowser
     hostname: filebrowser
-    image: hurlenko/filebrowser
+    image: filebrowser/filebrowser
     restart: unless-stopped
       #environment:
     networks:
@@ -19,7 +19,7 @@ services:
     ports:
       - ${PORTS_FILEBROWSER_HTTP}:8080
     volumes:
-      - fb-data:/data
+      - fb-data:/database
       - fb-config:/config
-      - /docker/27hs/mnt:/data/megalodon:ro
+      - /docker/27hs/mnt:/srv:ro
 
