@@ -18,7 +18,7 @@ services:
     networks:
       - green
     ports:
-      - ${PORTS_FILEBROWSER_HTTP}:8080
+      - ${PORTS_FILEBROWSER_HTTP}:80
     volumes:
       - fb-data:/data
       - fb-config:/config
