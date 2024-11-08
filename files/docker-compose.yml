@@ -21,5 +21,5 @@ services:
     volumes:
       - fb-data:/database
       - fb-config:/config
-      - /docker/27hs/mnt:/srv:ro
+      - ${FILEBROWSER_ROOT_FOLDER}:/srv:ro
 
