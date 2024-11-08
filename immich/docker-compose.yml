@@ -17,8 +17,8 @@ services:
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
-      - ${IMMICH_UPLOADS_FOLDER}:/usr/src/app/upload
-      - ${IMMICH_EXTLIB1_FOLDER}:/mnt/extlib1:ro
+      - ${EXTRA_MOUNT_ROOT}/immich:/mnt:ro
+      - ${EXTRA_MOUNT_ROOT}/immich-upload:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     environment:
       DB_USERNAME: immich
@@ -27,7 +27,7 @@ services:
     networks: 
       - green
     ports:
-      - ${PORTS_PHOTOS_HTTP}:2283 
+      - ${PORTS_IMMICH}:2283 
     depends_on:
       - redis
       - database
@@ -35,31 +35,10 @@ services:
     healthcheck:
       disable: false
 
-  immich-machine-learning:
-    container_name: ${STACK_NAME}-immich-ml
-    hostname: immich-ml
-    # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
-    # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:release
-    # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
-    #   file: hwaccel.ml.yml
-    #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
-    networks: 
-      - green
-    volumes:
-      - immich-model-cache:/cache
-    environment:
-      DB_USERNAME: immich
-      DB_DATABASE_NAME: immich
-      DB_PASSWORD: ${IMMICH_POSTGRES_PASSWORD}
-    restart: always
-    healthcheck:
-      disable: false
-
   redis:
     container_name: ${STACK_NAME}-immich-redis
     hostname: immich-redis
-    image: docker.io/redis:6.2-alpine@sha256:2ba50e1ac3a0ea17b736ce9db2b0a9f6f8b85d4c27d5f5accc6a416d8f42c6d5
+    image: docker.io/redis:6.2-alpine
     networks: 
       - green
     healthcheck:
@@ -67,8 +46,8 @@ services:
     restart: always
 
   database:
-    container_name: ${STACK_NAME}-immich-postgres
-    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+    container_name: ${STACK_NAME}-immich-pg
+    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
     networks: 
       - green
     environment:
@@ -81,9 +60,6 @@ services:
       - immich-db-data:/var/lib/postgresql/data
     healthcheck: 
       test: ["CMD", "pg_isready", "-U", "immich"]
-        #healthcheck:
-        #test: pg_isready --dbname='immich' --username='immich' || exit 1; Chksum="$$(psql --dbname='immich' --username='immich' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
-        #interval: 5m
     command:
       [
         'postgres',

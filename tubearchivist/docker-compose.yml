@@ -4,35 +4,12 @@ networks:
     name: ${STACK_NAME}-green
 
 volumes:
-  jellyfin-media:
-  jellyfin-config:
-  jellyfin-cache:
   tubearchivist-media:
   tubearchivist-cache:
   tubearchivist-redis-data:
   tubearchivist-es-data:
 
 services:
-  jellyfin:
-    image: jellyfin/jellyfin
-    container_name: ${STACK_NAME}-jellyfin
-    hostname: jellyfin
-    networks:
-      - green
-    ports:
-      - ${PORTS_MEDIA_JF_HTTP}:8096
-    volumes:
-      - jellyfin-config:/config
-      - jellyfin-cache:/cache
-      # media mounts
-      - ${MEDIA_LIBRARY_MOUNT_PATH}:/media:ro 
-      - ${MEDIA_YOUTUBE_MOUNT_PATH}:/youtube:ro
-    restart: unless-stopped
-    environment:
-      - JELLYFIN_PublishedServerUrl=https://${MEDIA_JF_HOST}/
-        #extra_hosts:
-        #  - 'host.docker.internal:host-gateway'
-
   tubearchivist:
     container_name: ${STACK_NAME}-tubearchivist
     hostname: tubearchivist
@@ -41,22 +18,19 @@ services:
     networks:
       - green
     ports:
-      - ${PORTS_MEDIA_TA_HTTP}:8000
+      - ${PORTS_TUBEARCHIVIST}:8000
     volumes:
       - tubearchivist-cache:/cache
-      # youtube mount
-      - /docker/${STACK_NAME}/mnt/media/:/youtube
+      - ${EXTRA_MOUNT_ROOT}/tubearchivist:/youtube
     environment:
-      - ES_URL=http://tubearchivist-es:9200     # needs protocol e.g. http and port
-      - REDIS_HOST=tubearchivist-redis          # don't add protocol
-        #- HOST_UID=1000
-        #- HOST_GID=1000
-      - TA_HOST=${MEDIA_TA_HOST}
-      - TA_USERNAME=admin           # your initial TA credentials
-      - TA_PASSWORD=${MEDIA_TA_PASSWORD}             # your initial TA credentials
+      - ES_URL=http://tubearchivist-es:9200     
+      - REDIS_HOST=tubearchivist-redis          
+      - TA_HOST=${SUBDOMAIN_TUBEARCHIVIST}.${DOMAIN}
+      - TA_USERNAME=admin          
+      - TA_PASSWORD=${TUBEARCHIVIST_ADMIN_PASSWORD}
       - TA_ENABLE_AUTH_PROXY=true
       - TA_AUTH_PROXY_USERNAME_HEADER=HTTP_REMOTE_USER
-      - ELASTIC_PASSWORD=${MEDIA_TA_ES_PASSWORD} # set password for Elasticsearch
+      - ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD} # set password for Elasticsearch
       - TZ=Europe/London
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -90,7 +64,7 @@ services:
     networks:
       - green
     environment:
-      - "ELASTIC_PASSWORD=${MEDIA_TA_ES_PASSWORD}"
+      - "ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD}"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - "xpack.security.enabled=true"
       - "discovery.type=single-node"
@@ -103,4 +77,5 @@ services:
       - tubearchivist-es-data:/usr/share/elasticsearch/data
     expose:
       - "9200"
+
 

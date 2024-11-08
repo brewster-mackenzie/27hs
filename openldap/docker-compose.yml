@@ -10,16 +10,16 @@ networks:
 services:
   openldap:
     image: osixia/openldap:1.5.0
-    container_name: ${STACK_NAME}-ldap
-    hostname: ldap
-    domainname: ${LDAP_DOMAIN}
+    container_name: ${STACK_NAME}-openldap
+    hostname: openldap
+    domainname: ${OPENLDAP_DOMAIN}
     environment:
       LDAP_LOG_LEVEL: "256"
-      LDAP_ORGANISATION: ${LDAP_ORGANISATION}
-      LDAP_DOMAIN: ${LDAP_DOMAIN}
-      LDAP_BASE_DN: ""
-      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
-      LDAP_CONFIG_PASSWORD: ${LDAP_CONFIG_PASSWORD}
+      LDAP_ORGANISATION: ${OPENLDAP_ORGANISATION}
+      LDAP_DOMAIN: ${OPENLDAP_DOMAIN}
+      LDAP_BASE_DN: ${OPENLAP_BASE_DN}
+      LDAP_ADMIN_PASSWORD: ${OPENLDAP_ADMIN_PASSWORD}
+      LDAP_CONFIG_PASSWORD: ${OPENLDAP_CONFIG_PASSWORD}
       LDAP_READONLY_USER: "false"
       LDAP_RFC2307BIS_SCHEMA: "false"
       LDAP_BACKEND: "mdb"
@@ -32,7 +32,7 @@ services:
       LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
       LDAP_TLS_VERIFY_CLIENT: "demand"
       LDAP_REPLICATION: "false"
-      KEEP_EXISTING_CONFIG: ${LDAP_KEEP_EXISTING_CONFIG}
+      KEEP_EXISTING_CONFIG: ${OPENLDAP_KEEP_EXISTING_CONFIG}
       LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
       LDAP_SSL_HELPER_PREFIX: "ldap"
     tty: true
@@ -47,15 +47,15 @@ services:
 
   phpldapadmin:
     image: osixia/phpldapadmin:latest
-    container_name: ${STACK_NAME}-ldap-admin
-    hostname: ldap-admin 
+    container_name: ${STACK_NAME}-phpldapadmin
+    hostname: phpldapadmin
     environment:
-      PHPLDAPADMIN_LDAP_HOSTS: ldap 
+      PHPLDAPADMIN_LDAP_HOSTS: openldap 
       PHPLDAPADMIN_HTTPS: false 
     networks:
       - green
     ports:
-      - "${PORTS_LDAP_ADMIN_HTTP}:80"
+      - "${PORTS_PHPLDAPADMIN}:80"
     depends_on:
-      - openldap
+      - ldap
     restart: unless-stopped

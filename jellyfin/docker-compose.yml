@@ -1,0 +1,27 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  jellyfin-media:
+  jellyfin-config:
+  jellyfin-cache:
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: ${STACK_NAME}-jellyfin
+    hostname: jellyfin
+    networks:
+      - green
+    ports:
+      - ${PORTS_JELLYFIN}:8096
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - ${EXTRA_MOUNT_ROOT}/jellyfin:/mnt 
+    restart: unless-stopped
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://${SUBDOMAIN_JELLYFIN}.${DOMAIN}
+

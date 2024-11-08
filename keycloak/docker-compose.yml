@@ -31,14 +31,13 @@ services:
     networks:
       - green
     ports:
-      - ${PORTS_KEYCLOAK_HTTP}:8080
+      - ${PORTS_KEYCLOAK}:8080
     command: start
     environment:
       KC_REALM_NAME: ${STACK_NAME}
-      KC_HOSTNAME: https://auth.27hs.co.uk
+      KC_HOSTNAME: https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}
       KC_HOSTNAME_PORT: 8080
       KC_HTTP_ENABLED: true
-        #KC_HTTP_RELATIVE_PATH: /auth
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -56,19 +55,19 @@ services:
     environment:
       OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
       OAUTH2_PROXY_COOKIE_SECRET: ${OAUTH2_PROXY_COOKIE_SECRET}
-      OAUTH2_PROXY_COOKIE_DOMAINS: .27hs.co.uk
-      OAUTH2_PROXY_WHITELIST_DOMAINS: .27hs.co.uk
+      OAUTH2_PROXY_COOKIE_DOMAINS: .${DOMAIN}
+      OAUTH2_PROXY_WHITELIST_DOMAINS: .${DOMAIN}
       OAUTH2_PROXY_PROVIDER: oidc
       OAUTH2_PROXY_CLIENT_ID: oauth2-proxy
       OAUTH2_PROXY_CLIENT_SECRET: ${OAUTH2_PROXY_CLIENT_SECRET}
       OAUTH2_PROXY_EMAIL_DOMAINS: '*'
-      OAUTH2_PROXY_OIDC_ISSUER_URL: https://auth.27hs.co.uk/realms/master
-      OAUTH2_PROXY_REDIRECT_URL: https://auth.27hs.co.uk/oauth2/callback
+      OAUTH2_PROXY_OIDC_ISSUER_URL: https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/realms/master
+      OAUTH2_PROXY_REDIRECT_URL: https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/oauth2/callback
       OAUTH2_PROXY_SET_XAUTHREQUEST: true
     networks:
       - green
     ports:
-      - ${PORTS_OAUTH2PROXY_HTTP}:4180
+      - ${PORTS_OAUTH2PROXY}:4180
     depends_on:
       - keycloak
     restart: unless-stopped
