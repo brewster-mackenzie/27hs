@@ -1,0 +1,21 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  dashy:
+    image: lissy93/dashy
+    container_name: ${STACK_NAME}-dashy
+    hostname: dashy
+    ports:
+      ${PORTS_DASHY}:8080
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
