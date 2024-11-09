@@ -1,0 +1,35 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  gitea-data:
+  gitea-pg-data:
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: ${STACK_NAME}-gitea
+    hostname: gitea
+    restart: unless-stopped
+    networks:
+      - green
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - ${PORTS_GITEA}:3000
+      - ${PORTS_GITEA_SSH}:22
+    depends_on:
+      - gitea-pg
+
+  gitea-pg:
+    image: postgres:14
+    container_name: ${STACK_NAME}-gitea-pg
+    restart: unless-stopped
+    networks:
+      - green
+    volumes:
+      - gitea-pg-data:/var/lib/postgresql/data
