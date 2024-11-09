@@ -1,0 +1,66 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  paperless-data:
+  paperless-media:
+  paperless-pg-data:
+  paperless-redis-data:
+
+services:
+  paperless-redis:
+    image: docker.io/library/redis:7
+    container_name: ${STACK_NAME}-paperless-redis
+    hostname: paperless-redis
+    restart: unless-stopped
+    networks:
+      - green
+    volumes:
+      - paperless-redis-data:/data
+
+  paperless-pg:
+    image: docker.io/library/postgres:15
+    container_name: ${STACK_NAME}-paperless-pg
+    hostname: paperless-pg
+    restart: unless-stopped
+    networks:
+      - green
+    volumes:
+      - paperless-pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
+
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: ${STACK_NAME}-paperless
+    hostname: paperless
+    restart: unless-stopped
+    depends_on:
+      - paperless-redis
+      - paperless-pg
+    environment:
+      PAPERLESS_URL: https://${SUBDOMAIN_PAPERLESS}.{DOMAIN}
+      PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
+    networks:
+      - green
+    ports:
+      - ${PORTS_PAPERLESS}:8000
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000"]
+      interval: 2m
+      timeout: 10s
+      retries: 5
+    volumes:
+      - paperless-data:/usr/src/paperless/data
+      - paperless-media:/usr/src/paperless/media
+        #- ./export:/usr/src/paperless/export
+        #- ./consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBHOST: paperless-pg
+
+
