@@ -8,6 +8,8 @@ services:
     image: lissy93/dashy
     container_name: ${STACK_NAME}-dashy
     hostname: dashy
+    networks:
+      - green
     ports:
       - ${PORTS_DASHY}:8080
     environment:
