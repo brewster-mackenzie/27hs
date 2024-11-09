@@ -1,0 +1,20 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  glance:
+    image: glanceapp/glance
+    container_name: ${STACK_NAME}-glance
+    hostname: glance
+    networks:
+      - green
+    ports:
+      - ${PORT_GLANCES}:8080
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./glance.yml:/app/glance.yml
+      - ./logo.png:/app/assets/logo.png
+

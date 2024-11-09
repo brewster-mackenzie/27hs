@@ -1,0 +1,91 @@
+server:
+  port: 8080
+  assets-path: /app/assets
+
+branding:
+  custom-footer: |
+    <p>Don't forget to give the cat some <a href="https://www.google.com/search?q=dreamies">treats</a> 😺</p>
+  logo-url: /assets/logo.png
+  favicon-url: /assets/logo.png
+
+pages:
+  - name: Home
+    width: wide
+    hide-desktop-navigation: true
+    center-vertically: true
+    columns:
+      - size: small
+        widgets:
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: Europe/London
+                label: UK
+
+          - type: calendar
+
+          - type: weather
+            units: metric
+            hour-format: 24h
+            location: Coningsby, United Kingdom
+
+      - size: full
+        widgets:
+          - type: search
+            autofocus: true
+  
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+              - title: Media Server
+                url: https://media.27hs.co.uk/
+                icon: si:jellyfin
+              - title: Pictures & Videos
+                url: https://pics.27hs.co.uk/
+                icon: si:immich
+              - title: YouTube Archiver
+                url: https://youtube.27hs.co.uk/
+                icon: si:youtube
+              - title: Gitea
+                url: https://git.27hs.co.uk/
+                icon: si:gitea
+
+          - type: monitor
+            cache: 1m
+            title: Administration
+            sites:
+              - title: LDAP Admin
+                url: https://ldap.27hs.co.uk/
+                icon: si:vaultwarden
+              - title: SSO Admin
+                url: https://auth.27hs.co.uk/
+                icon: si:keycloak
+              
+  
+          - type: bookmarks
+            groups:
+              - title: General
+                links:
+                  - title: Gmail
+                    url: https://mail.google.com/mail/u/0/
+                  - title: Amazon
+                    url: https://www.amazon.com/
+                  - title: Github
+                    url: https://github.com/
+              - title: Entertainment
+                links:
+                  - title: YouTube
+                    url: https://www.youtube.com/
+                  - title: Prime Video
+                    url: https://www.primevideo.com/
+                  - title: Disney+
+                    url: https://www.disneyplus.com/
+              - title: Social
+                links:
+                  - title: Reddit
+                    url: https://www.reddit.com/
+                  - title: Twitter
+                    url: https://twitter.com/
+                  - title: Instagram
+                    url: https://www.instagram.com/
