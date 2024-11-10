@@ -41,8 +41,6 @@ services:
       - data:/var/lib/ldap
       - config:/etc/ldap/slapd.d
       - /docker/${STACK_NAME}/certs:/container/service/slapd/assets/certs/
-    deploy:
-      replicas: 0
     networks:
       - green
     restart: always
@@ -61,5 +59,3 @@ services:
     depends_on:
       - ldap
     restart: unless-stopped
-    deploy:
-      replicas: 0

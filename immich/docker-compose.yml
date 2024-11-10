@@ -34,8 +34,6 @@ services:
     restart: unless-stopped
     healthcheck:
       disable: false
-    deploy:
-      replicas: 0
 
   redis:
     container_name: ${STACK_NAME}-immich-redis
@@ -46,8 +44,6 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
     restart: unless-stopped
-    deploy:
-      replicas: 0
 
   database:
     container_name: ${STACK_NAME}-immich-pg
@@ -81,6 +77,4 @@ services:
         'wal_compression=on',
       ]
     restart: unless-stopped
-    deploy:
-      replicas: 0
 

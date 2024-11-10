@@ -34,9 +34,6 @@ services:
         #GITEA__server__START_SSH_SERVER='true'
         #GITEA__server__SSH_PORT='3031'
         #GITEA__server__SSH_LISTEN_PORT='3031'
-    deploy:
-      replicas: 0
-
     depends_on:
       - gitea-pg
 
@@ -53,5 +50,3 @@ services:
       - green
     volumes:
       - gitea-pg-data:/var/lib/postgresql/data
-    deploy:
-      replicas: 0

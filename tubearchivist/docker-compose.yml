@@ -41,8 +41,6 @@ services:
     depends_on:
       - tubearchivist-es
       - tubearchivist-redis
-    deploy:
-      replicas: 0
 
   tubearchivist-redis:
     image: redis/redis-stack-server
@@ -57,8 +55,6 @@ services:
       - tubearchivist-redis-data:/data
     depends_on:
       - tubearchivist-es
-    deploy:
-      replicas: 0
 
   tubearchivist-es:
     image: bbilly1/tubearchivist-es         # only for amd64, or use official es 8.14.3
@@ -81,7 +77,3 @@ services:
       - tubearchivist-es-data:/usr/share/elasticsearch/data
     expose:
       - "9200"
-    deploy:
-      replicas: 0
-
-

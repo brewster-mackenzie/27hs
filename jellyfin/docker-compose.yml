@@ -24,6 +24,3 @@ services:
     restart: unless-stopped
     environment:
       - JELLYFIN_PublishedServerUrl=https://${SUBDOMAIN_JELLYFIN}.${DOMAIN}
-    deploy:
-      replicas: 0
-

@@ -19,8 +19,6 @@ services:
       - green
     volumes:
       - paperless-redis-data:/data
-    deploy:
-      replicas: 0
 
   paperless-pg:
     image: docker.io/library/postgres:15
@@ -35,8 +33,6 @@ services:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
-    deploy:
-      replicas: 0
 
   paperless:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -66,7 +62,5 @@ services:
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: paperless-pg
-    deploy:
-      replicas: 0
 
 

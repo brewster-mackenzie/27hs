@@ -17,6 +17,3 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./glance.yml:/app/glance.yml
       - ./logo.png:/app/assets/logo.png
-    deploy:
-      replicas: 0
-
