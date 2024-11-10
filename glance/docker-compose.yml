@@ -15,5 +15,5 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ./glance/glance.yml:/app/glance.yml
-      - ./glance/logo.png:/app/assets/logo.png
+      - ./glance.yml:/app/glance.yml
+      - ./logo.png:/app/assets/logo.png
