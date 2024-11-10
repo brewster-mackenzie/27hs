@@ -22,5 +22,3 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - glance_config:/extra
-      - ./glance.yml:/app/glance.yml
-      - ./logo.png:/app/assets/logo.png
