@@ -3,11 +3,17 @@ networks:
     external: true
     name: ${STACK_NAME}-green
 
+volumes:
+  glance_config:
+
 services:
   glance:
     image: glanceapp/glance
     container_name: ${STACK_NAME}-glance
     hostname: glance
+    command: >
+      sh -c "ln -s /extra/glance.yml /app/glance.yml
+          && ln -s /extra/logo.png /app/assets/logo.png"
     networks:
       - green
     ports:
@@ -15,5 +21,6 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - glance_config:/extra
       - ./glance.yml:/app/glance.yml
       - ./logo.png:/app/assets/logo.png
