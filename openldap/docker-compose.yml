@@ -57,5 +57,5 @@ services:
     ports:
       - "${PORTS_PHPLDAPADMIN}:80"
     depends_on:
-      - ldap
+      - openldap
     restart: unless-stopped
