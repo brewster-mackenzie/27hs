@@ -22,4 +22,6 @@ services:
       - fb-data:/database
       - fb-config:/config
       - ${FILEBROWSER_ROOT_FOLDER}:/srv:ro
+    deploy:
+      replicas: 0
 
