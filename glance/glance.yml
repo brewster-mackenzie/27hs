@@ -49,7 +49,7 @@ pages:
                 icon: si:youtube
               - title: Documents
                 url: https://docs.27hs.co.uk/
-                icon: si:paperless
+                icon: si:paperlessngx
               - title: Gitea
                 url: https://git.27hs.co.uk/
                 icon: si:gitea
