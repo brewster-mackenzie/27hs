@@ -64,6 +64,7 @@ services:
             ]
           }
         }
+      PAPERLESS_DISABLE_REGULAR_LOGIN: ${PAPERLESS_DISABLE_REGULAR_LOGIN}
     networks:
       - green
     ports:
