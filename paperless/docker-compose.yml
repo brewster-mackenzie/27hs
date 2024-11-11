@@ -35,7 +35,7 @@ services:
       POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
 
   paperless:
-    image: ghcr.io/paperless-ngx/paperless-ngx:1.17.4
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
     container_name: ${STACK_NAME}-paperless
     hostname: paperless
     restart: unless-stopped
