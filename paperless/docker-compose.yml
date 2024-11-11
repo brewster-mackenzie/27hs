@@ -47,6 +47,23 @@ services:
       PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
       PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_DBHOST: paperless-pg
+      PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
+      PAPERLESS_SOCIALACCOUNT_PROVIDERS: |
+        {
+          "openid_connect": {
+            "APPS": [
+              {
+                "provider_id": "keycloak",
+                "name": "Keycloak",
+                "client_id": "paperless",
+                "secret": "${PAPERLESS_CLIENT_ID}",
+                "settings": {
+                  "server_url": "https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/realms/master/.well-known/openid-configuration"
+                }
+              }
+            ]
+          }
+        }
     networks:
       - green
     ports:
