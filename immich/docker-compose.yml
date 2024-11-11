@@ -33,7 +33,7 @@ services:
       - database
     restart: unless-stopped
     healthcheck:
-      disable: false
+      disable: true
 
   redis:
     container_name: ${STACK_NAME}-immich-redis
