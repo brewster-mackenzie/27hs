@@ -47,22 +47,16 @@ pages:
               - title: YouTube Archiver
                 url: https://youtube.27hs.co.uk/
                 icon: si:youtube
+              - title: Documents
+                url: https://docs.27hs.co.uk/
+                icon: si:paperless
               - title: Gitea
                 url: https://git.27hs.co.uk/
                 icon: si:gitea
-
-          - type: monitor
-            cache: 1m
-            title: Administration
-            sites:
-              - title: LDAP Admin
-                url: https://ldap.27hs.co.uk/
-                icon: si:vaultwarden
               - title: SSO Admin
                 url: https://auth.27hs.co.uk/
                 icon: si:keycloak
-              
-  
+
           - type: bookmarks
             groups:
               - title: General
