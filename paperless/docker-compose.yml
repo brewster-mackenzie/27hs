@@ -45,7 +45,7 @@ services:
     environment:
       PAPERLESS_URL: https://${SUBDOMAIN_PAPERLESS}.{DOMAIN}
       PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
-      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_DBHOST: paperless-pg
     networks:
       - green
