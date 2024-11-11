@@ -56,7 +56,7 @@ services:
                 "provider_id": "keycloak",
                 "name": "Keycloak",
                 "client_id": "paperless",
-                "secret": "${PAPERLESS_CLIENT_ID}",
+                "secret": "${PAPERLESS_CLIENT_KEY}",
                 "settings": {
                   "server_url": "https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/realms/master/.well-known/openid-configuration"
                 }
