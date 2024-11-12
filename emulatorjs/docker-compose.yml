@@ -20,3 +20,4 @@ services:
     volumes:
       - emulatorjs-data:/data
       - emulatorjs-config:/config
+      - ${EXTRA_MOUNT_ROOT}/emulatorjs/library/ROMs/SNES:/roms/snes:ro
