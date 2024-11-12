@@ -17,6 +17,7 @@ services:
       - TZ=Europe/London
     ports:
       - ${PORTS_EMULATORJS}:80
+      - ${PORTS_EMULATORJS_ADMIN}:3000
     volumes:
       - emulatorjs-data:/data
       - emulatorjs-config:/config
