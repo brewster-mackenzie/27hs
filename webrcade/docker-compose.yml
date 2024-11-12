@@ -1,0 +1,16 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  image: webrcade/webrcade:latest
+  container_name: ${STACK_NAME}-webrcade
+  hostname: webrcade
+  networks:
+    - green
+  ports:
+    - ${PORTS_WEBRCADE}:80
+  volumes:
+    - ${EXTRA_MOUNT_ROOT}/webrcade:/var/www/html/content:ro
+  restart: unless-stopped
