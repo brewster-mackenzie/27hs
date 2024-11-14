@@ -17,9 +17,9 @@ services:
     networks:
       - green
     ports:
-      - ${PORTS_FILEBROWSER_HTTP}:80
+      - ${PORTS_FILEBROWSER}:80
     volumes:
       - fb-data:/database
       - fb-config:/config
-      - ${FILEBROWSER_ROOT_FOLDER}:/srv:ro
+      - ${EXTRA_MOUNT_ROOT}:/srv:ro
 
