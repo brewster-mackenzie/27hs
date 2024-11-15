@@ -13,7 +13,7 @@ services:
     hostname: filebrowser
     image: filebrowser/filebrowser
     restart: unless-stopped
-      #environment:
+    command: ["filebrowser config set --auth.method=proxy --auth.header=X-Preferred-Username"]
     networks:
       - green
     ports:
