@@ -13,14 +13,6 @@ services:
     hostname: filebrowser
     image: filebrowser/filebrowser
     restart: unless-stopped
-    command:
-      - sh
-      - -c
-      - >
-        echo '{"port":80,"baseURL":"","address":"","log":"stdout","auth":{"method":"proxy","header":"X-Auth-User"},"branding":{"name":"FileBrowser"},"filesystem":{"root":"/srv"}}' > /.filebrowser.json &&
-        
-
-      #filebrowser -c /.filebrowser.json
     networks:
       - green
     ports:
