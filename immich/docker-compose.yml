@@ -35,6 +35,25 @@ services:
     healthcheck:
       disable: true
 
+  immich-ml:
+    container_name: ${STACK_NAME}-immich-ml
+    hostname: immich-ml
+    # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
+    #   file: hwaccel.ml.yml
+    #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    volumes:
+      - immich-model-cache:/cache
+    restart: always
+    environment:
+      DB_USERNAME: immich
+      DB_DATABASE_NAME: immich
+      DB_PASSWORD: ${IMMICH_POSTGRES_PASSWORD}
+    healthcheck:
+      disable: false
+
   redis:
     container_name: ${STACK_NAME}-immich-redis
     hostname: immich-redis
