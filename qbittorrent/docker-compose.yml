@@ -20,6 +20,6 @@ services:
     ports:
       - ${PORTS_QBITTORRENT}:8080
     volumes:
-      - qtb-config:/config
+      - qbt-config:/config
       - ${EXTRA_MOUNT_ROOT}/torrents:/data
 
