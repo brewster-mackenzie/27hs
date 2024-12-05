@@ -1,0 +1,25 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  qbt-config:
+
+services:
+  qbittorrent:
+    container_name: ${STACK_NAME}-qbittorrent
+    hostname: qbittorrent
+    image: hotio/qbittorrent:latest
+    restart: unless-stopped
+    environment:
+      - WEBUI_PORTS=8080/tcp,8080/udp
+      - TZ=Europe/London
+    networks:
+      - green
+    ports:
+      - ${PORTS_QBITTORRENT}:8080
+    volumes:
+      - qtb-config:/config
+      - ${EXTRA_MOUNT_ROOT}/torrents:/data
+
