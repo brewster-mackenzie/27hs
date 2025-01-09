@@ -1,10 +1,10 @@
 # 27HS Home Services 🏠
-_A collecton of self-hosted services for home & family use_ 
+_A collection of self-hosted services for home & family use_ 
 
 
 ## Services
 
-| Service | Purpose | Status |
+| Name | Purpose | Status |
 | ------- | ------- | ------ |
 | [Glance](https://github.com/glanceapp/glance) | home dashboard | 🐋🔑 |
 | [Cockpit](https://github.com/cockpit-project/cockpit) | server admin | |
@@ -13,10 +13,19 @@ _A collecton of self-hosted services for home & family use_
 | [OAuth2 Proxy](https://github.com/oauth2-proxy/oauth2-proxy) | SSO | 🐋🔑 |
 | [Paperless](https://github.com/paperless-ngx/paperless-ngx) | personal documents | 🐋🔑 |
 | [Immich](https://github.com/immich-app/immich) | pictures & videos | 🐋🔑 |
+| [Jellyfin](https://github.com/jellyfin/jellyfin) | films, TV, YouTube archives & books | 🐋🔑 |
 | [FileBrowser](https://github.com/filebrowser/filebrowser) | read-only file access | 🐋🔑 |
 | [Gitea](https://github.com/go-gitea/gitea) | source control | 🐋🔑 |
+| [QBitTorrent]() | torrents | 🐋🔑 |
 
 **Key**
 
 - 🐋 containerised
 - 🔑 SSO authentication
+
+## Tools Used
+
+| Name | Purpose |
+| ---- | ------- |
+| [docker](https://www.docker.com/) | containers |
+| [nginx](https://nginx.org/en/) | reverse proxy |
