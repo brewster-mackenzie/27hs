@@ -7,7 +7,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Add the repository to Apt sources:
+# Add the repository to apt sources:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
@@ -29,8 +29,10 @@ sudo usermod -aG docker $USER
 sudo systemctl enable docker
 sudo systemctl start docker
 
-echo "Docker installed successfully"
-echo "Please logout and login again to use docker without sudo"
-
 # Install additional tools
 sudo apt-get install pwgen
+
+echo "INSTALLATION FINISHED"
+echo "The user '$USER' has been added to the 'docker' group"
+echo "Please logout and login again to ensure correct permissions"
+
