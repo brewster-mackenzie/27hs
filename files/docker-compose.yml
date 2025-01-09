@@ -21,5 +21,5 @@ services:
     volumes:
       - fb-data:/database
       - fb-config:/config
-      - ${FILEBROWSER_ROOT_FOLDER}:/srv:ro
+      - ${EXTRA_MOUNT_ROOT}:/srv:ro
 
