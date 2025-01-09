@@ -13,11 +13,10 @@ services:
     hostname: filebrowser
     image: filebrowser/filebrowser
     restart: unless-stopped
-      #environment:
     networks:
       - green
     ports:
-      - ${PORTS_FILEBROWSER_HTTP}:80
+      - ${PORTS_FILEBROWSER}:80
     volumes:
       - fb-data:/database
       - fb-config:/config

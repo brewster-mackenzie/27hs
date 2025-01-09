@@ -20,7 +20,8 @@ services:
     volumes:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
-      - ${EXTRA_MOUNT_ROOT}/jellyfin:/mnt 
+      - ${EXTRA_MOUNT_ROOT}/library:/mnt/library
+      - ${EXTRA_MOUNT_ROOT}/youtube:/mnt/youtube
     restart: unless-stopped
     environment:
       - JELLYFIN_PublishedServerUrl=https://${SUBDOMAIN_JELLYFIN}.${DOMAIN}

@@ -50,6 +50,9 @@ pages:
               - title: Documents
                 url: https://docs.27hs.co.uk/
                 icon: si:paperlessngx
+              - title: File Browser
+                url: https://files.27hs.co.uk/
+                icon: si:googledocs
               - title: Gitea
                 url: https://git.27hs.co.uk/
                 icon: si:gitea
