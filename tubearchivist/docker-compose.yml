@@ -74,7 +74,6 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
-          pids: 1
     ulimits:
       memlock:
         soft: -1
