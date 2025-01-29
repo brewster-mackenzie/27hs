@@ -10,7 +10,7 @@ volumes:
 
 services:
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:10.10.1
     container_name: ${STACK_NAME}-jellyfin
     hostname: jellyfin
     networks:
