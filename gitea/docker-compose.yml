@@ -9,7 +9,7 @@ volumes:
 
 services:
   gitea:
-    image: gitea/gitea:latest
+    image: gitea/gitea:1.22.3
     container_name: ${STACK_NAME}-gitea
     hostname: gitea
     restart: unless-stopped
