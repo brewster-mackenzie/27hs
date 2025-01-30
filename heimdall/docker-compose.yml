@@ -16,7 +16,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - heimdall_config:/config
+      - heimdall-config:/config
     ports:
       - ${PORTS_HEIMDALL}:80
     restart: unless-stopped
