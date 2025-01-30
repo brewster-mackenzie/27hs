@@ -1,0 +1,22 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  heimdall-config:
+
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: ${STACK_NAME}-heimdall
+    hostname: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - heimdall_config:/config
+    ports:
+      - ${PORTS_HEIMDALL}:80
+    restart: unless-stopped
