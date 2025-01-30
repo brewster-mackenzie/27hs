@@ -29,7 +29,7 @@ services:
       - TA_USERNAME=admin          
       - TA_PASSWORD=${TUBEARCHIVIST_ADMIN_PASSWORD}
       - TA_ENABLE_AUTH_PROXY=true
-      - TA_AUTH_PROXY_USERNAME_HEADER=HTTP_REMOTE_USER
+      - TA_AUTH_PROXY_USERNAME_HEADER=X-Auth-User
       - ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD} # set password for Elasticsearch
       - TZ=Europe/London
     healthcheck:
