@@ -20,7 +20,7 @@ services:
     volumes:
       - heimdall-user1-config:/config
     ports:
-      - ${PORTS_USERDASH1}:80
+      - ${PORTS_USERDASH1}:443
     restart: unless-stopped
 
   heimdall-user2:
@@ -34,7 +34,7 @@ services:
     volumes:
       - heimdall-user2-config:/config
     ports:
-      - ${PORTS_USERDASH2}:80
+      - ${PORTS_USERDASH2}:443
     restart: unless-stopped
 
   heimdall-user3:
@@ -48,5 +48,5 @@ services:
     volumes:
       - heimdall-user3-config:/config
     ports:
-      - ${PORTS_USERDASH3}:80
+      - ${PORTS_USERDASH3}:443
     restart: unless-stopped
