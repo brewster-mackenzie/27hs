@@ -12,6 +12,8 @@ services:
     hostname: homarr
     image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
+    networks:
+      - green
     volumes:
       - homarr-appdata:/appdata
     environment:
