@@ -10,6 +10,7 @@ services:
   qbittorrent:
     container_name: ${STACK_NAME}-qbittorrent
     hostname: qbittorrent
+    user: "1000:1000"
     image: hotio/qbittorrent:latest
     restart: unless-stopped
     environment:
