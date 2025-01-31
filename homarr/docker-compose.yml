@@ -16,5 +16,8 @@ services:
     environment:
       - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
       - AUTH_PROVIDERS=credentials,oidc
+      - AUTH_OIDC_ISSUER=https://auth.27hs.co.uk
+      - AUTH_OIDC_CLIENT_ID=${HOMARR_AUTH_OIDC_CLIENT_ID}
+      - AUTH_OIDC_CLIENT_SECRET=${HOMARR_AUTH_OIDC_CLIENT_SECRET}
     ports:
       - ${PORTS_HOMARR}:7575
