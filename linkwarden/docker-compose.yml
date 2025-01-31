@@ -7,6 +7,7 @@ volumes:
   linkwarden-pg-data:
   linkwarden-data:
   linkwarden-ollama:
+  openwebui-data:
 
 services:
   postgres:
@@ -52,6 +53,7 @@ services:
   ollama:
     container_name: ${STACK_NAME}-linkwarden-ai
     hostname: linkwarden-ai
+    image: ollama/ollama:latest
     volumes:
       - linkwarden-ollama:/root/.ollama
     networks:
@@ -60,6 +62,7 @@ services:
   open-webui:
     container_name: ${STACK_NAME}-open-webui
     hostname: open-webui
+    image: ghcr.io/open-WebUI/open-WebUI:main
     ports:
       - ${PORTS_OPEN_WEBUI}:8080
     volumes: 
