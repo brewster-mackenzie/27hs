@@ -14,6 +14,7 @@ services:
     environment:
       - TZ=Europe/London
       - ReverseProxySettings__UseForwardedHeaders=true
+      - ReverseProxySettings__DebugPrintRequestHeaders=true
     volumes:
       - fenrus-data:/app/data
     ports:
