@@ -21,7 +21,7 @@ services:
     container_name: ${STACK_NAME}-linkwarden
     hostname: linkwarden
     environment:
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@linkwarden-pg:5432/postgres
+      - DATABASE_URL=postgresql://postgres:${LINKWARDEN_POSTGRES_PASSWORD}@linkwarden-pg:5432/postgres
       - POSTGRES_PASSWORD=${LINKWARDEN_POSTGRES_PASSWORD}
       - NEXTAUTH_URL=https://www.27hs.co.uk/api/v1/auth
       - NEXTAUTH_SECRET=${LINKWARDEN_NEXTAUTH_SECRET}
