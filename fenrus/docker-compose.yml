@@ -13,6 +13,7 @@ services:
     hostname: fenrus
     environment:
       - TZ=Europe/London
+      - ReverseProxySettings__UseForwardedHeaders=true
     volumes:
       - fenrus-data:/app/data
     ports:
