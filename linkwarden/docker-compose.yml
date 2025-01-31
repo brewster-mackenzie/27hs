@@ -58,7 +58,7 @@ services:
       - green    
 
   open-webui:
-    container-name: ${STACK_NAME}-open-webui
+    container_name: ${STACK_NAME}-open-webui
     hostname: open-webui
     ports:
       - ${PORTS_OPEN_WEBUI}:8080
