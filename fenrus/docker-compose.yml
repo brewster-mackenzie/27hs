@@ -13,6 +13,7 @@ services:
     hostname: fenrus
     environment:
       - TZ=Europe/London
+      - PROTOCOL=https
       - ReverseProxySettings__UseForwardedHeaders=true
       - ReverseProxySettings__DebugPrintRequestHeaders=true
     volumes:
