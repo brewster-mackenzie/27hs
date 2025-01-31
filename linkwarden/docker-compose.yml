@@ -65,7 +65,9 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     ports:
       - ${PORTS_OPEN_WEBUI}:8080
-    volumes: 
+    networks:
+      - green
+    volumes:
       - openwebui-data:/app/Backend/Data
     environment:
       - OLLAMA_BASE_URL=http://linkwarden-ai:11434
