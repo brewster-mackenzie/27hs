@@ -62,7 +62,7 @@ services:
   open-webui:
     container_name: ${STACK_NAME}-open-webui
     hostname: open-webui
-    image: ghcr.io/open-WebUI/open-WebUI:main
+    image: ghcr.io/open-webui/open-webui:main
     ports:
       - ${PORTS_OPEN_WEBUI}:8080
     volumes: 
