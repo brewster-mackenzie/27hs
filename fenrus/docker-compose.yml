@@ -13,6 +13,7 @@ services:
     hostname: fenrus
     environment:
       - TZ=Europe/London
+      - DOTNET_GENERATE_ASPNET_CERTIFICATE=true
       - PROTOCOL=https
       - ReverseProxySettings__UseForwardedHeaders=true
       - ReverseProxySettings__DebugPrintRequestHeaders=true
