@@ -22,4 +22,5 @@ services:
     volumes:
       - qbt-config:/config
       - ${EXTRA_MOUNT_ROOT}/torrents:/downloads
+      - ${EXTRA_MOUNT_ROOT}/library:/library
 
