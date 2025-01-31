@@ -8,7 +8,8 @@ volumes:
 
 services:
   homarr:
-    container_name: homarr
+    container_name: ${STACK_NAME}-homarr 
+    hostname: homarr
     image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
     volumes:
