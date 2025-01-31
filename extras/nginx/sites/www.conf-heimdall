@@ -1,0 +1,44 @@
+map $arg_dummy $user {
+    default "1";
+}
+
+map $user $backend {
+    default "";
+    admin 7020;
+    brewster 7021;
+    beeks 7022;
+}
+
+server {
+    server_name www.27hs.co.uk;
+
+    root /var/www/html;
+
+
+    location / {
+	# auth request block for SSO
+	auth_request /oauth2/auth; 
+	error_page 401 = @error401;
+	auth_request_set $user   $upstream_http_x_auth_request_preferred_username;
+
+	add_header X-User $user always;
+	add_header X-Backend $backend always;
+
+	proxy_set_header Host $host;
+	proxy_set_header X-User $user;
+	proxy_set_header X-Backend $backend;
+        proxy_pass https://127.0.0.1:$backend; # PORTS_TUBEARCHIVIST
+    }
+
+    location @error401 {
+	return 302 https://auth.27hs.co.uk/oauth2/start?rd=https://$host$uri;
+    }
+    
+    location = /oauth2/auth {
+        proxy_pass http://localhost:7003; # PORTS_OAUTH2PROXY
+	proxy_set_header Host $host;	
+        proxy_set_header X-Original-URI $request_uri;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
