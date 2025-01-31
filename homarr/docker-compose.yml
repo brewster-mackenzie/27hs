@@ -22,5 +22,6 @@ services:
       - AUTH_OIDC_ISSUER=https://auth.27hs.co.uk
       - AUTH_OIDC_CLIENT_ID=${HOMARR_AUTH_OIDC_CLIENT_ID}
       - AUTH_OIDC_CLIENT_SECRET=${HOMARR_AUTH_OIDC_CLIENT_SECRET}
+      - AUTH_OIDC_AUTO_LOGIN=true
     ports:
       - ${PORTS_HOMARR}:7575
