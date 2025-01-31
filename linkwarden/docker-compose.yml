@@ -1,0 +1,41 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  linkwarden-pg-data:
+  linkwarden-data:
+
+services:
+  postgres:
+    container_name: ${STACK_NAME}-linkwarden-pg
+    hostname: linkwarden-pg
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_PASSWORD=${LINKWARDEN_POSTGRES_PASSWORD}
+    restart: always
+    volumes:
+      - linkwarden-pg-data:/var/lib/postgresql/data
+  linkwarden:
+    container_name: ${STACK_NAME}-linkwarden
+    hostname: linkwarden
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@linkwarden-pg:5432/postgres
+      - POSTGRES_PASSWORD=${LINKWARDEN_POSTGRES_PASSWORD}
+      - NEXTAUTH_URL=https://www.27hs.co.uk/api/v1/auth
+      - NEXTAUTH_SECRET=${LINKWARDEN_NEXTAUTH_SECRET}
+      - NEXT_PUBLIC_KEYCLOAK_ENABLED=true
+      - KEYCLOAK_CUSTOM_NAME=SSO
+      - KEYCLOAK_ISSUER=https://auth.27hs.co.uk
+      - KEYCLOAK_CLIENT_ID=${LINKWARDEN_CLIENT_ID}
+      - KEYCLOAK_CLIENT_SECRET=${LINKWARDEN_CLIENT_SECRET}
+    restart: always
+    # build: . # uncomment this line to build from source
+    image: ghcr.io/linkwarden/linkwarden:latest # comment this line to build from source
+    ports:
+      - 3000:3000
+    volumes:
+      - linkwarden-data:/data/data
+    depends_on:
+      - postgres
