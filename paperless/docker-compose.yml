@@ -43,7 +43,7 @@ services:
       - paperless-redis
       - paperless-pg
     environment:
-      PAPERLESS_URL: https://${SUBDOMAIN_PAPERLESS}.${DOMAIN}
+      PAPERLESS_URL: https://${SUBDOMAIN_SSO}.${DOMAIN}
       PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
       PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_DBHOST: paperless-pg
@@ -54,11 +54,11 @@ services:
             "APPS": [
               {
                 "provider_id": "keycloak",
-                "name": "Keycloak",
+                "name": "SSO",
                 "client_id": "paperless",
                 "secret": "${PAPERLESS_CLIENT_KEY}",
                 "settings": {
-                  "server_url": "https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/realms/master/.well-known/openid-configuration"
+                  "server_url": "https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/.well-known/openid-configuration"
                 }
               }
             ]
