@@ -3,6 +3,9 @@ networks:
     external: true
     name: ${STACK_NAME}-green
 
+volumes:
+  homepage_config:
+
 services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
@@ -11,4 +14,4 @@ services:
     ports:
       - ${PORTS_HOMEPAGE}:3000
     volumes:
-      - ./config:/app/config
+      - homepage_config:/app/config
