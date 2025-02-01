@@ -2,10 +2,53 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services/
 
-- Media:
+- Hosted Services:
+  - Media:
+    - Jellyfin:
+        icon: sh-jellyfin
+        href: https://media.27hs.co.uk
+        description: films, TV & books
 
-  - Jellyfin:
-      widget:
-				type: jellyfin
-				url: https://media.27hs.co.uk
-        key: be2aac6563db4f1dbb4573cb8fcc339f 
+    - TubeArchivist:
+        icon: sh-tube-archivist
+        href: https://youtube.27hs.co.uk
+        description: archive YouTube videos
+
+    - Immich:
+        icon: sh-immich
+        href: https://pics.27hs.co.uk
+        description: photos & videos
+
+    - qBitTorrent:
+        icon: sh-qbittorrent
+        href: https://bt.27hs.co.uk
+        description: torrent client
+  
+  - Personal:
+  
+    - Paperless:
+        icon: sh-paperless-ngx
+        href: https://docs.27hs.co.uk
+        description: documents
+
+    - Gitea:
+        icon: sh-gitea
+        href: https://git.27hs.co.uk
+        description: source control
+
+  - Administration: 
+
+    - Portainer:
+        icon: sh-portainer
+        href: https://admin.27hs.co.uk
+        description: manage containers
+
+    - SSO:
+        icon: sh-pocket-id
+        href: https://auth.27hs.co.uk
+        description: manage realm
+
+    - File Browser:
+        icon: sh-file-browser
+        href: https://files.27hs.co.uk
+        description: manage files

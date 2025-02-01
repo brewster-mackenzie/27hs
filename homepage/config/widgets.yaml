@@ -2,11 +2,29 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/info-widgets/
 
-- resources:
-    cpu: true
-    memory: true
-    disk: /
+#- resources:
+#    cpu: true
+#    memory: true
+#    disk: /
+
+#53.1051°N 0.1752°W
+
+- greeting:
+    text_size: x1
+    text: don't forget to feed the cat 🐭
 
 - search:
-    provider: duckduckgo
+    provider: google
     target: _blank
+
+- openweathermap:
+    label: Coningsby
+    latitude: 53.1051
+    longitude: 0.1752
+    units: metric 
+    provider: openweathermap
+    cache: 5 
+    format: 
+      maximumFractionDigits: 1
+
+
