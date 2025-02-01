@@ -1,0 +1,11 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Media:
+
+  - Jellyfin:
+      widget:
+				type: jellyfin
+				url: https://media.27hs.co.uk
+        key: be2aac6563db4f1dbb4573cb8fcc339f 

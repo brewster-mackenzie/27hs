@@ -1,0 +1,16 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+
+title: 27HS Services
+
+description: don't forget to feed the cat!
+
+layout:
+  Media:
+    style: row
+    columns: 4
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
