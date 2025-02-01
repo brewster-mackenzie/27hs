@@ -1,0 +1,14 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: ${STACK_NAME}-homepage
+    hostname: homepage
+    ports:
+      - ${PORTS_HOMEPAGE}:3000
+    volumes:
+      - ./config:/app/config
