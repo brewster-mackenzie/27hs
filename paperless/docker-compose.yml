@@ -55,8 +55,8 @@ services:
               {
                 "provider_id": "keycloak",
                 "name": "SSO",
-                "client_id": "paperless",
-                "secret": "${PAPERLESS_CLIENT_KEY}",
+                "client_id": "${PAPERLESS_CLIENT_ID}",
+                "secret": "${PAPERLESS_CLIENT_SECRET}",
                 "settings": {
                   "server_url": "https://${SUBDOMAIN_KEYCLOAK}.${DOMAIN}/.well-known/openid-configuration"
                 }
