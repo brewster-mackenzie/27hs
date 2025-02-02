@@ -4,13 +4,12 @@
 
 title: 27HS Services
 
-description: don't forget to feed the cat!
-
 layout:
   Hosted Services:
+    header: false
     style: row
     columns: 3
 
 providers:
-  openweathermap: ca556924cf7fdcaef33f92759280a8ba
+  openweathermap: 
   weatherapi: weatherapiapikey
