@@ -30,7 +30,8 @@ services:
     container_name: ${STACK_NAME}-quartz
     hostname: quartz
     environment:
-      BUILD_UPDATE_DELAY: 120
+      DELAY: 60
+      BUILD_UPDATE_DELAY: 60
       AUTO_REBUILD: true
     volumes:
       - quartz-data:/vault:ro
