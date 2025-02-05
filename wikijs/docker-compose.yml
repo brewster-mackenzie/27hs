@@ -36,5 +36,7 @@ services:
       DB_PASS: ${WIKIJS_POSTGRES_PASSWORD}
       DB_NAME: wiki
     restart: unless-stopped
+    volumes:
+      - ./bm-theme:/wiki/server/themes/bm-theme
     ports:
       - "${PORTS_WIKIJS}:3000"
