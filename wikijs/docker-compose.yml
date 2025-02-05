@@ -26,6 +26,8 @@ services:
     image: ghcr.io/requarks/wiki:2
     depends_on:
       - db
+    container_name: ${STACK_NAME}-wikijs
+    hostname: wikijs
     environment:
       DB_TYPE: postgres
       DB_HOST: wikijs-db 
