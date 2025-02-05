@@ -1,0 +1,34 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  gitsync:
+    image: alpine:latest
+    container_name: ${STACK_NAME}-gitsync
+    hostname: gitsync
+    restart: always
+    volumes:
+      - ./repo:/repo  # Mounts the local repo directory
+    environment:
+      - REPO_URL=https://git.27hs.co.uk/brewster/ikew
+      - CHECK_INTERVAL=30  # Polling interval in seconds
+    command: ["/bin/sh", "-c", "/sync.sh"]
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /repo
+    stdin_open: true
+    tty: true
+
+  quartz:
+    image: shommey/dockerized-quartz
+    container_name: quartz-notes
+    environment:
+      BUILD_UPDATE_DELAY: 120
+      AUTO_REBUILD: true
+    volumes:
+      - ./repo:/vault:ro
+    ports:
+      - "${PORTS_QUARTZ}:80"
+    restart: unless-stopped
+
