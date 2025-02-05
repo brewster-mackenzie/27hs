@@ -19,8 +19,7 @@ services:
     environment:
       - REPO_URL=https://git.27hs.co.uk/brewster/ikew
       - CHECK_INTERVAL=30  # Polling interval in seconds
-    command: ["/bin/sh", "-c", "chmod +x /sync/sync.sh && /sync/sync.sh"]
-    entrypoint: ["/bin/sh", "-c"]
+    entrypoint: ["/bin/sh", "-c", "chmod +x /sync/sync.sh && /sync/sync.sh"]
     working_dir: /repo
     stdin_open: true
     tty: true
