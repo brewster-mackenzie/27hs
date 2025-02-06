@@ -10,6 +10,7 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: ${STACK_NAME}-dnote-postgres
+    hostname: dnote-postgres
     environment:
       POSTGRES_USER: dnote
       POSTGRES_PASSWORD: ${DNOTE_POSTGRES_PASSWORD}
@@ -22,6 +23,8 @@ services:
 
   dnote:
     image: dnote/dnote:latest
+    container_name: ${STACK_NAME}-dnote
+    hostname: dnote
     environment:
       GO_ENV: PRODUCTION
       DBSkipSSL: "true"
