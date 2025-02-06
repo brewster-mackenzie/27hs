@@ -1,0 +1,69 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+  
+volumes:
+  outline-data:
+  outline-db-data:
+
+services:
+  outline:
+    image: docker.getoutline.com/outlinewiki/outline:latest
+    container_name: ${STACK_NAME}-outline
+    hostname: outline
+    ports:
+      - ${PORTS_WIKI}:3000
+    volumes:
+      - outline-data:/var/lib/outline/data
+    environment:
+      PGSSLMODE: disable
+      SECRET_KEY: ${OUTLINE_SECRET_KEY}
+      UTILS_SECRET: ${OUTLINE_UTILS_SECRET}
+      DATABASE_URL: postgres://user:${OUTLINE_POSTGRES_PASSWORD}@outline-db:5432/outline
+      REDIS_URL: redis://outline-redis:6379
+      URL: https://wiki.27hs.co.uk
+      PORT: 3000
+      FILE_STORAGE: local
+      FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
+      FILE_STORAGE_UPLOAD_MAX_SIZE: 26214400
+      
+      OIDC_CLIENT_ID: ${OUTLINE_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OUTLINE_OIDC_CLIENT_SECRET}
+      OIDC_AUTH_URI: https://auth.27hs.co.uk/authorize
+      OIDC_TOKEN_URI: https://auth.27hs.co.uk/api/oidc/token
+      OIDC_USERINFO_URI: https://auth.27hs.co.uk/api/oidc/userinfo
+      OIDC_DISPLAY_NAME: Pocket ID
+    depends_on:
+      - postgres
+      - redis
+
+  redis:
+    image: redis
+    container_name: ${STACK_NAME}-outline-redis
+    hostname: outline-redis
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+
+  postgres:
+    image: postgres
+    container_name: ${STACK_NAME}-outline-db
+    hostname: outline-db
+    volumes:
+      - outline-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "outline", "-U", "user"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: ${OUTLINE_POSTGRES_PASSWORD}
+      POSTGRES_DB: 'outline'
+ 
