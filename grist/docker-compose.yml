@@ -18,6 +18,7 @@ services:
     ports:
       - ${PORTS_DATA}:8484
     environment:
+      APP_HOME_URL: https://data.27hs.co.uk
       GRIST_SESSION_SECRET: ${GRIST_SESSION_SECRET}
       GRIST_DEFAULT_EMAIL: admin@27hs.co.uk
       GRIST_OIDC_IDP_ISSUER: ${GRIST_OIDC_ISSUER}
