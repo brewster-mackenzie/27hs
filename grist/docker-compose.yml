@@ -24,4 +24,4 @@ services:
       GRIST_OIDC_IDP_CLIENT_ID: ${GRIST_OIDC_CLIENT_ID}
       GRIST_OIDC_IDP_CLIENT_SECRET: ${GRIST_OIDC_CLIENT_SECRET}
       GRIST_OIDC_IDP_SCOPES: openid email profile
-      GRIST_OIDC_IDP_HOST: https://data.27hs.co.uk
+      GRIST_OIDC_SP_HOST: https://data.27hs.co.uk
