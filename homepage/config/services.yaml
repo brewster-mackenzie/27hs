@@ -25,6 +25,16 @@
         description: torrent client
   
   - Personal:
+    
+    - Outline:
+        icon: sh-outline
+        href: https://wiki.27hs.co.uk
+        description: wiki & notes
+
+    - Grist:
+        icon: sh-grist
+        href: https://data.27hs.co.uk
+        description: spreadsheets & data tables
   
     - Paperless:
         icon: sh-paperless-ngx
