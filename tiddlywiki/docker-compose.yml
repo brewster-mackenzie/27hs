@@ -12,7 +12,7 @@ services:
   tiddlywiki:
     image: elasticdog/tiddlywiki:5.1.23
     container_name: ${STACK_NAME}-tiddlywiki
-    name: tiddlywiki
+    hostname: tiddlywiki
     volumes:
       - tiddlywiki_data:/tiddlywiki
     ports:
