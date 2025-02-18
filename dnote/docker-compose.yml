@@ -1,0 +1,49 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  dnote_data:
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: ${STACK_NAME}-dnote-postgres
+    hostname: dnote-postgres
+    environment:
+      POSTGRES_USER: dnote
+      POSTGRES_PASSWORD: ${DNOTE_POSTGRES_PASSWORD}
+      POSTGRES_DB: dnote
+    networks:
+      - green
+    volumes:
+      - dnote_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  dnote:
+    image: dnote/dnote:latest
+    container_name: ${STACK_NAME}-dnote
+    hostname: dnote
+    environment:
+      GO_ENV: PRODUCTION
+      DBSkipSSL: "true"
+      DBHost: dnote-postgres
+      DBPort: 5432
+      DBName: dnote
+      DBUser: dnote
+      DBPassword: ${DNOTE_POSTGRES_PASSWORD}
+      WebURL: https://notes.27hs.co.uk
+      OnPremises: "true"
+      SmtpHost:
+      SmtpPort:
+      SmtpUsername:
+      SmtpPassword:
+      DisableRegistration: "${DNOTE_DISABLE_REGISTRATION}"
+    networks:
+      - green
+    ports:
+      - ${PORTS_DNOTE}:3000
+    depends_on:
+      - postgres
+

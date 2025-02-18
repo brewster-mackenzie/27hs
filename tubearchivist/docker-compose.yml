@@ -1,0 +1,79 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  tubearchivist-media:
+  tubearchivist-cache:
+  tubearchivist-redis-data:
+  tubearchivist-es-data:
+
+services:
+  tubearchivist:
+    container_name: ${STACK_NAME}-tubearchivist
+    hostname: tubearchivist
+    restart: unless-stopped
+    image: bbilly1/tubearchivist
+    networks:
+      - green
+    ports:
+      - ${PORTS_TUBEARCHIVIST}:8000
+    volumes:
+      - tubearchivist-cache:/cache
+      - ${EXTRA_MOUNT_ROOT}/youtube:/youtube
+    environment:
+      - ES_URL=http://tubearchivist-es:9200     
+      - REDIS_HOST=tubearchivist-redis          
+      - TA_HOST=${SUBDOMAIN_TUBEARCHIVIST}.${DOMAIN}
+      - TA_USERNAME=admin          
+      - TA_PASSWORD=${TUBEARCHIVIST_ADMIN_PASSWORD}
+      - TA_ENABLE_AUTH_PROXY=true
+      - TA_AUTH_PROXY_USERNAME_HEADER=HTTP_REMOTE_USER
+      - ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD} # set password for Elasticsearch
+      - TZ=Europe/London
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      - tubearchivist-es
+      - tubearchivist-redis
+
+  tubearchivist-redis:
+    image: redis/redis-stack-server
+    container_name: ${STACK_NAME}-tubearchivist-redis
+    hostname: tubearchivist-redis
+    restart: unless-stopped
+    networks:
+      - green
+    expose:
+      - "6379"
+    volumes:
+      - tubearchivist-redis-data:/data
+    depends_on:
+      - tubearchivist-es
+
+  tubearchivist-es:
+    image: bbilly1/tubearchivist-es         # only for amd64, or use official es 8.14.3
+    container_name: ${STACK_NAME}-tubearchivist-es
+    hostname: tubearchivist-es
+    restart: unless-stopped
+    networks:
+      - green
+    environment:
+      - "ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD}"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=true"
+      - "discovery.type=single-node"
+      - "path.repo=/usr/share/elasticsearch/data/snapshot"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - tubearchivist-es-data:/usr/share/elasticsearch/data
+    expose:
+      - "9200"

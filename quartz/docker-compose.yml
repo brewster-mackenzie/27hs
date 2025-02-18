@@ -1,0 +1,40 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  quartz-sync:
+  quartz-data:
+
+services:
+  gitsync:
+    image: alpine:latest
+    container_name: ${STACK_NAME}-gitsync
+    hostname: gitsync
+    restart: always
+    volumes:
+      - quartz-sync:/sync
+      - quartz-data:/repo
+    environment:
+      - REPO_URL=https://git.27hs.co.uk/brewster/ikew
+      - CHECK_INTERVAL=30  # Polling interval in seconds
+    entrypoint: ["/bin/sh", "-c", "chmod +x /sync/sync.sh && /sync/sync.sh"]
+    working_dir: /repo
+    stdin_open: true
+    tty: true
+
+  quartz:
+    image: shommey/dockerized-quartz
+    container_name: ${STACK_NAME}-quartz
+    hostname: quartz
+    environment:
+      DELAY: 60
+      BUILD_UPDATE_DELAY: 60
+      AUTO_REBUILD: true
+    volumes:
+      - quartz-data:/vault:ro
+    ports:
+      - "${PORTS_QUARTZ}:80"
+    restart: unless-stopped
+

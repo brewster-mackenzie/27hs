@@ -1,0 +1,42 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  wikijs-db-data:
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    container_name: ${STACK_NAME}-wikijs-db
+    hostname: wikijs-db
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: ${WIKIJS_POSTGRES_PASSWORD}
+      POSTGRES_USER: wikijs
+    logging:
+      driver: "none"
+    restart: unless-stopped
+    volumes:
+      - wikijs-db-data:/var/lib/postgresql/data
+
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    depends_on:
+      - db
+    container_name: ${STACK_NAME}-wikijs
+    hostname: wikijs
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: wikijs-db 
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: ${WIKIJS_POSTGRES_PASSWORD}
+      DB_NAME: wiki
+    restart: unless-stopped
+    volumes:
+      - ./bm-theme:/wiki/server/themes/bm-theme
+    ports:
+      - "${PORTS_WIKIJS}:3000"

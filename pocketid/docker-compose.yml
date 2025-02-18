@@ -1,0 +1,49 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  pocketid-data:
+
+services:
+  pocketid:
+    container_name: ${STACK_NAME}-pocketid
+    hostname: pocketid
+    image: stonith404/pocket-id  # or ghcr.io/stonith404/pocket-id
+    restart: unless-stopped
+    environment:
+      PUBLIC_APP_URL: https://${SUBDOMAIN_SSO}.${DOMAIN}
+      TRUST_PROXY: true
+      MAXMIND_LICENCE_KEY:
+      PUID: ${POCKETID_PUID}
+      PGID: ${POCKETID_PGID}
+    ports:
+      - ${PORTS_POCKETID}:80
+    volumes:
+      - pocketid-data:/app/backend/data
+
+  oauth2proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    container_name: ${STACK_NAME}-oauth2proxy
+    hostname: oauth2proxy
+    environment:
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_COOKIE_SECRET: ${OAUTH2_PROXY_COOKIE_SECRET}
+      OAUTH2_PROXY_COOKIE_DOMAINS: .${DOMAIN}
+      OAUTH2_PROXY_WHITELIST_DOMAINS: .${DOMAIN}
+      OAUTH2_PROXY_PROVIDER: oidc
+      OAUTH2_PROXY_CLIENT_ID: ${OAUTH2_PROXY_CLIENT_ID}
+      OAUTH2_PROXY_CLIENT_SECRET: ${OAUTH2_PROXY_CLIENT_SECRET}
+      OAUTH2_PROXY_EMAIL_DOMAINS: '*'
+      OAUTH2_PROXY_OIDC_ISSUER_URL: https://${SUBDOMAIN_SSO}.${DOMAIN}
+      OAUTH2_PROXY_REDIRECT_URL: https://${SUBDOMAIN_SSO}.${DOMAIN}/oauth2/callback
+      OAUTH2_PROXY_SET_XAUTHREQUEST: true
+      OAUTH2_PROXY_INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL: true
+    networks:
+      - green
+    ports:
+      - ${PORTS_OAUTH2PROXY}:4180
+    depends_on:
+      - pocketid
+    restart: unless-stopped
