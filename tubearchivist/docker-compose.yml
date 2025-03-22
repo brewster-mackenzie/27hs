@@ -32,9 +32,6 @@ services:
       - TA_AUTH_PROXY_USERNAME_HEADER=HTTP_REMOTE_USER
       - ELASTIC_PASSWORD=${TUBEARCHIVIST_ELASTICSEARCH_PASSWORD} # set password for Elasticsearch
       - TZ=Europe/London
-      - HTTP_PROXY=${TUBEARCHIVIST_PROXY}
-      - HTTPS_PROXY=${TUBEARCHIVIST_PROXY}
-      - NO_PROXY=localhost,127.0.0.1,tubearchivist-es,tubearchivist-redis,192.168.10.0/24
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 2m
