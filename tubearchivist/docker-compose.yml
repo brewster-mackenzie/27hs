@@ -24,7 +24,7 @@ services:
       - ${EXTRA_MOUNT_ROOT}/youtube:/youtube
     environment:
       - ES_URL=http://tubearchivist-es:9200     
-      - REDIS_HOST=tubearchivist-redis          
+      - REDIS_CON=redis://tubearchivist-redis:6379
       - TA_HOST=${SUBDOMAIN_TUBEARCHIVIST}.${DOMAIN}
       - TA_USERNAME=admin          
       - TA_PASSWORD=${TUBEARCHIVIST_ADMIN_PASSWORD}
