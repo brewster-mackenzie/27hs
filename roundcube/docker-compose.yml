@@ -3,6 +3,10 @@ networks:
     external: true
     name: ${STACK_NAME}-green
 
+volumes:
+  config:
+    name: ${STACK_NAME}-roundcubemail-config
+
 services:
   roundcubemail:
     image: roundcube/roundcubemail:latest
@@ -18,6 +22,7 @@ services:
       - ${PORTS_ROUNDCUBE}:80
     volumes:
       - ./www:/var/www/html
+      - config:/var/roundcube/config/
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=pgsql
       - ROUNDCUBEMAIL_DB_HOST=roundcubedb # same as pgsql container name
