@@ -10,9 +10,9 @@ services:
     image: shenxn/protonmail-bridge
     networks:
       - green
-    ports:
-      - ${PORTS_SMTP}:25/tcp
-      - ${PORTS_IMAP}:143/tcp
+    expose:
+      - 1025
+      - 1143
     restart: unless-stopped
     volumes:
       - protonmail:/root
