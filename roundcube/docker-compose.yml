@@ -25,9 +25,9 @@ services:
       - ROUNDCUBEMAIL_DB_USER=roundcube # same as pgsql POSTGRES_USER env name
       - ROUNDCUBEMAIL_DB_PASSWORD=${ROUNDCUBE_POSTGRES_PASSWORD} # same as pgsql POSTGRES_PASSWORD env name
       - ROUNDCUBEMAIL_SKIN=elastic
-      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://localhost:7143
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://protonmail-bridge
       - ROUNDCUBEMAIL_DEFAULT_PORT=7143
-      - ROUNDCUBEMAIL_SMTP_SERVER=tls://localhost:7025
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://protonmail-bridge
       - ROUNDCUBEMAIL_SMTP_PORT=7025
 
   roundcubedb:
