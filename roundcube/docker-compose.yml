@@ -1,3 +1,8 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
 services:
   roundcubemail:
     image: roundcube/roundcubemail:latest
@@ -7,6 +12,8 @@ services:
       - roundcubedb
     links:
       - roundcubedb
+    networks:
+      - green
     ports:
       - ${PORTS_ROUNDCUBE}:80
     volumes:
@@ -19,12 +26,16 @@ services:
       - ROUNDCUBEMAIL_DB_PASSWORD=${ROUNDCUBE_POSTGRES_PASSWORD} # same as pgsql POSTGRES_PASSWORD env name
       - ROUNDCUBEMAIL_SKIN=elastic
       - ROUNDCUBEMAIL_DEFAULT_HOST=tls://localhost:7143
+      - ROUNDCUBEMAIL_DEFAULT_PORT=7143
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://localhost:7025
+      - ROUNDCUBEMAIL_SMTP_PORT=7025
 
   roundcubedb:
     image: postgres:latest
     container_name: ${STACK_NAME}-roundcubedb
     # restart: unless-stopped
+    networks:
+      - green
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
     environment:

@@ -1,8 +1,15 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
 services:
   protonmail-bridge:
     container_name: ${STACK_NAME}-protonmail-bridge
     hostname: protonmail-bridge
     image: shenxn/protonmail-bridge
+    networks:
+      - green
     ports:
       - ${PORTS_SMTP}:25/tcp
       - ${PORTS_IMAP}:143/tcp
