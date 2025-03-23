@@ -11,8 +11,8 @@ services:
     networks:
       - green
     expose:
-      - 1025
-      - 1143
+      - 25
+      - 143
     restart: unless-stopped
     volumes:
       - protonmail:/root
