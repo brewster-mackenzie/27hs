@@ -1,0 +1,17 @@
+networks:
+  green:
+    name: ${STACK_NAME}-green 
+    external: true
+
+services:
+  snappymail:
+    container_name: snappymail
+    image: djmaze/snappymail:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/:/snappymail/data/
+    networks:
+      - green
+    ports:
+      - ${PORTS_MAIL}:8888
+    restart: unless-stopped
