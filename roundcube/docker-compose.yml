@@ -1,6 +1,6 @@
 services:
   roundcubemail:
-    image: roundcube/roundcubemail:latest-fpm
+    image: roundcube/roundcubemail:latest
     container_name: ${STACK_NAME}-roundcubemail
     # restart: unless-stopped
     depends_on:
