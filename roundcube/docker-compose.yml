@@ -18,8 +18,8 @@ services:
       - ROUNDCUBEMAIL_DB_USER=roundcube # same as pgsql POSTGRES_USER env name
       - ROUNDCUBEMAIL_DB_PASSWORD=${ROUNDCUBE_POSTGRES_PASSWORD} # same as pgsql POSTGRES_PASSWORD env name
       - ROUNDCUBEMAIL_SKIN=elastic
-      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://mail.example.org
-      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.example.org
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://localhost:7143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://localhost:7025
 
   roundcubedb:
     image: postgres:latest
