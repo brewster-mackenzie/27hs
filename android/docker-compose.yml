@@ -9,8 +9,8 @@ services:
     devices:
       - /dev/kvm:/dev/kvm
     environment:
-      - EMULATOR_DEVICE: Samsung Galaxy S10
-      - WEB_VNC: true
+      - EMULATOR_DEVICE="Samsung Galaxy S10"
+      - WEB_VNC=true
     ports:
       - ${PORTS_ANDROID}:6080
     volumes:
