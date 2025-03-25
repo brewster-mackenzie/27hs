@@ -14,4 +14,4 @@ services:
     ports:
       - ${PORTS_ANDROID}:6080
     volumes:
-      data:/home/androidusr
+      - data:/home/androidusr
