@@ -1,0 +1,17 @@
+volumes: 
+  memos-data:
+
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+services:
+  memos:
+    container_name: ${STACK_NAME}-memos
+    image: neosmemo/memos:stable
+    ports:
+      - ${PORTS_NOTES}:5230
+    volumes:
+      - memos-data:/var/opt/memos
+
