@@ -26,25 +26,16 @@
   
   - Personal:
     
-    - Outline:
-        icon: sh-outline
-        href: https://wiki.27hs.co.uk
-        description: wiki & notes
-
-    - Grist:
-        icon: sh-grist
-        href: https://data.27hs.co.uk
-        description: spreadsheets & data tables
+    - Recipes:
+        icon: mdi-noodles
+        href: https://ikew.27hs.co.uk/recipes 
+        description: recipes
   
     - Paperless:
         icon: sh-paperless-ngx
         href: https://docs.27hs.co.uk
         description: documents
 
-    - Gitea:
-        icon: sh-gitea
-        href: https://git.27hs.co.uk
-        description: source control
 
   - Administration: 
 
