@@ -72,7 +72,6 @@ services:
     container_name: ${STACK_NAME}-onlyoffice-control-panel
     depends_on:
      - onlyoffice-document-server
-     - onlyoffice-mail-server
      - onlyoffice-community-server
     image: onlyoffice/controlpanel:3.5.2.530
     environment:
