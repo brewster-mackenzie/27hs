@@ -16,6 +16,7 @@ services:
     container_name: ${STACK_NAME}-onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
     depends_on:
+     - onlyoffice-mail-server
      - onlyoffice-mysql-server
      - onlyoffice-document-server
     environment:
@@ -34,8 +35,8 @@ services:
     networks:
      - green
     ports:
-     - '80:80'
-     - '5222:5222'
+     - ${PORTS_ONLYOFFICE}:80
+     - ${PORTS_ONLYOFFICE_CHAT}:5222
     stdin_open: true
     tty: true
     restart: always
