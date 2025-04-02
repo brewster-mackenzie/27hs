@@ -97,12 +97,21 @@ networks:
 
 volumes:
   document_data:
+    name: ${STACK_NAME}-onlyoffice-document_data
   document_log:
+    name: ${STACK_NAME}-onlyoffice-document_log
   document_forgotten:
+    name: ${STACK_NAME}-onlyoffice-document_forgotten
   community_mysql:
+    name: ${STACK_NAME}-onlyoffice-community_mysql
   community_data:
+    name: ${STACK_NAME}-onlyoffice-community_data
   community_log:
+    name: ${STACK_NAME}-onlyoffice-community_log
   controlpanel_data:
+    name: ${STACK_NAME}-onlyoffice-controlpanel_data
   controlpanel_log:
+    name: ${STACK_NAME}-onlyoffice-controlpanel_log
   mysql_data:
+    name: ${STACK_NAME}-onlyoffice-mysql_data
 
