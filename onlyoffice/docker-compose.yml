@@ -16,7 +16,6 @@ services:
     container_name: ${STACK_NAME}-onlyoffice-community-server
     image: onlyoffice/communityserver:12.6.0.1900
     depends_on:
-     - onlyoffice-mail-server
      - onlyoffice-mysql-server
      - onlyoffice-document-server
     environment:
