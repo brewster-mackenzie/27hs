@@ -6,8 +6,6 @@ services:
      - MYSQL_ROOT_PASSWORD=my-secret-pw
     networks:
      - green
-    stdin_open: true
-    tty: true
     restart: always
     volumes:
      - mysql_data:/var/lib/mysql
