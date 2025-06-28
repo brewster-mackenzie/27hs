@@ -12,7 +12,6 @@ services:
     container_name: ${STACK_NAME}-portainer
     hostname: portainer
     networks:
-      - default
       - green
     ports:
       - ${PORTS_PORTAINER}:9000
