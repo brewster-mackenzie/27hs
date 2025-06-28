@@ -4,7 +4,7 @@ networks:
     name: ${STACK_NAME}-green
 
 volumes:
-  portainer_data:
+  data:
 
 services:
   portainer:
@@ -18,7 +18,7 @@ services:
       - ${PORTS_PORTAINER}:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - data:/data
     restart: always
 
 
