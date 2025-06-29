@@ -7,6 +7,11 @@
 #   -v /:/host \
 #   portainer/agent:2.21.5
 
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
 services:
   portainer-agent:
     image: portainer/agent:2.21.5
