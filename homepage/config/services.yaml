@@ -23,6 +23,19 @@
         icon: sh-qbittorrent
         href: https://bt.27hs.co.uk
         description: torrent client
+  
+  - Personal:
+    
+    - Recipes:
+        icon: mdi-noodles
+        href: https://ikew.27hs.co.uk/recipes 
+        description: recipes
+  
+    - Paperless:
+        icon: sh-paperless-ngx
+        href: https://docs.27hs.co.uk
+        description: documents
+
 
   - Administration: 
 
