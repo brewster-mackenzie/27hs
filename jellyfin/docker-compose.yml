@@ -4,7 +4,6 @@ networks:
     name: ${STACK_NAME}-green
 
 volumes:
-  jellyfin-media:
   jellyfin-config:
   jellyfin-cache:
 
@@ -20,8 +19,7 @@ services:
     volumes:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
-      - ${EXTRA_MOUNT_ROOT}/library:/mnt/library
-      - ${EXTRA_MOUNT_ROOT}/youtube:/mnt/youtube
+      - ${JELLYFIN_MOUNT_POINT}:/mnt/library
     restart: unless-stopped
     environment:
       - JELLYFIN_PublishedServerUrl=https://${SUBDOMAIN_JELLYFIN}.${DOMAIN}
