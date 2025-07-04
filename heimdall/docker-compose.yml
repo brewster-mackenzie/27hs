@@ -1,0 +1,19 @@
+version: "3.8"
+
+networks:
+  green:
+    name: ${STACK_NAME}-green
+    external: true
+
+services:
+  heimdall:
+    image: linuxserver/heimdall
+    container_name: ${STACK_NAME}-heimdall
+    networks:
+      - green
+    ports:
+      - "${PORTS_HOMEPAGE}:80"
+    volumes:
+      - ${HEIMDALL_MOUNT_POINT}:/config
+    restart: unless-stopped
+
