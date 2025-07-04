@@ -14,4 +14,4 @@ services:
     ports:
       - ${PORTS_HOMEPAGE}:3000
     volumes:
-      - homepage_config:/app/config
+      - ${HOMEPAGE_MOUNT_POINT}:/app/config
