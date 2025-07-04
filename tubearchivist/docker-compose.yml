@@ -21,7 +21,7 @@ services:
       - ${PORTS_TUBEARCHIVIST}:8000
     volumes:
       - tubearchivist-cache:/cache
-      - ${EXTRA_MOUNT_ROOT}/youtube:/youtube
+      - ${TUBEARCHIVIST_MOUNT_POINT}:/youtube
     environment:
       - ES_URL=http://tubearchivist-es:9200     
       - REDIS_CON=redis://tubearchivist-redis:6379
