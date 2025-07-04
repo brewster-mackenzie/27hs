@@ -12,7 +12,7 @@ services:
     container_name: ${STACK_NAME}-homepage
     hostname: homepage
     environment:
-      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
+      - HOMEPAGE_ALLOWED_HOSTS=${SUBDOMAIN_HOMEPAGE}.${DOMAIN},${HOMEPAGE_ALLOWED_HOSTS}
     ports:
       - ${PORTS_HOMEPAGE}:3000
     volumes:
