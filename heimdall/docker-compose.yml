@@ -9,6 +9,9 @@ services:
   heimdall:
     image: linuxserver/heimdall
     container_name: ${STACK_NAME}-heimdall
+    environment:
+      - PUID=${DOCKER_PUID}
+      - PGID=${DOCKER_PGID}
     networks:
       - green
     ports:
