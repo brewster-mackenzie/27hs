@@ -21,6 +21,6 @@ services:
       - ${PORTS_QBITTORRENT}:8080
     volumes:
       - qbt-config:/config
-      - ${EXTRA_MOUNT_ROOT}/torrents:/downloads
-      - ${EXTRA_MOUNT_ROOT}/library:/library
+      - ${QBT_MOUNT_POINT}/torrents:/downloads
+      - ${QBT_MOUNT_POINT}/media:/media
 
