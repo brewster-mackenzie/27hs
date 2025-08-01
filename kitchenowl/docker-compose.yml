@@ -22,7 +22,7 @@ services:
       JWT_SECRET_KEY: ${KITCHENOWL_JWT_SECRET_KEY}
 
       # Database configuration
-      DB_DRIVER: postgres
+      DB_DRIVER: postgresql
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: kitchenowl
