@@ -35,6 +35,9 @@ services:
       OIDC_CLIENT_SECRET: ${KITCHENOWL_OIDC_CLIENT_SECRET}
       OIDC_ISSUER: https://auth.27hs.co.uk/webman/sso/
 
+      LLM_MODEL=${KITCHENOWL_LLM_MODEL}
+      OPENAI_API_KEY=${KITCHENOWL_OPENAI_API_KEY}
+
     restart: unless-stopped
 
 volumes:
