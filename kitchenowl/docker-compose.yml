@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: ${STACK_NAME}-kitchenowl-db
+    environment:
+      POSTGRES_DB: kitchenowl
+      POSTGRES_USER: kitchenowl
+      POSTGRES_PASSWORD: ${KITCHENOWL_POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  kitchenowl:
+    image: timothymiller/kitchenowl:latest
+    container_name: ${STACK_NAME}-kitchenowl
+    depends_on:
+      - db
+    ports:
+      - ${PORTS_KITCHENOWL}:8080
+    environment:
+      FRONT_URL: https://food.27hs.co.uk
+
+      # Database configuration
+      DB_TYPE: postgres
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: kitchenowl
+      POSTGRES_PASSWORD: ${KITCHENOWL_POSTGRES_PASSWORD}
+      POSTGRES_DB: kitchenowl
+
+      # OIDC (OpenID Connect) configuration
+      ENABLE_OIDC: "true"
+      OIDC_CLIENT_ID: ${KITCHENOWL_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${KITCHENOWL_OIDC_CLIENT_SECRET}
+      OIDC_ISSUER: https://auth.27hs.co.uk
+
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
