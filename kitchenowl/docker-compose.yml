@@ -33,7 +33,7 @@ services:
       ENABLE_OIDC: "true"
       OIDC_CLIENT_ID: ${KITCHENOWL_OIDC_CLIENT_ID}
       OIDC_CLIENT_SECRET: ${KITCHENOWL_OIDC_CLIENT_SECRET}
-      OIDC_ISSUER: https://auth.27hs.co.uk
+      OIDC_ISSUER: https://auth.27hs.co.uk/webman/sso/
 
     restart: unless-stopped
 
