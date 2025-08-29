@@ -26,7 +26,7 @@ services:
     networks:
       - green
     volumes:
-      - ${PAPERLESS_MOUNT_ROOT}/pgsql:/var/lib/postgresql/data
+      - ${PAPERLESS_MOUNT_ROOT}/docs/pgsql:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
@@ -74,8 +74,8 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - ${PAPERLESS_MOUNT_ROOT}/data:/usr/src/paperless/data
-      - ${PAPERLESS_MOUNT_ROOT}/media:/usr/src/paperless/media
+      - ${PAPERLESS_MOUNT_ROOT}/docs/data:/usr/src/paperless/data
+      - ${PAPERLESS_MOUNT_ROOT}/docs/media:/usr/src/paperless/media
         #- ./export:/usr/src/paperless/export
         #- ./consume:/usr/src/paperless/consume
 
