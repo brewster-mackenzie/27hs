@@ -4,10 +4,7 @@ networks:
     name: ${STACK_NAME}-green
 
 volumes:
-  paperless-data:
-  paperless-media:
   paperless-pg-data:
-  paperless-redis-data:
 
 services:
   paperless-redis:
@@ -26,7 +23,7 @@ services:
     networks:
       - green
     volumes:
-      - ${PAPERLESS_MOUNT_ROOT}/docs/pgsql:/var/lib/postgresql/data
+      - paperless-pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
