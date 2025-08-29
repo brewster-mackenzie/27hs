@@ -17,8 +17,6 @@ services:
     restart: unless-stopped
     networks:
       - green
-    volumes:
-      - paperless-redis-data:/data
 
   paperless-pg:
     image: docker.io/library/postgres:15
@@ -28,7 +26,7 @@ services:
     networks:
       - green
     volumes:
-      - paperless-pg-data:/var/lib/postgresql/data
+      - ${PAPERLESS_MOUNT_ROOT}/pgsql:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
@@ -53,12 +51,12 @@ services:
           "openid_connect": {
             "APPS": [
               {
-                "provider_id": "keycloak",
+                "provider_id": "synology",
                 "name": "SSO",
                 "client_id": "${PAPERLESS_CLIENT_ID}",
                 "secret": "${PAPERLESS_CLIENT_SECRET}",
                 "settings": {
-                  "server_url": "https://${SUBDOMAIN_SSO}.${DOMAIN}/.well-known/openid-configuration"
+                  "server_url": "https://${SUBDOMAIN_SSO}.${DOMAIN}/webman/sso/.well-known/openid-configuration"
                 }
               }
             ]
@@ -75,8 +73,8 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - paperless-data:/usr/src/paperless/data
-      - paperless-media:/usr/src/paperless/media
+      - ${PAPERLESS_MOUNT_ROOT}/data:/usr/src/paperless/data
+      - ${PAPERLESS_MOUNT_ROOT}/media:/usr/src/paperless/media
         #- ./export:/usr/src/paperless/export
         #- ./consume:/usr/src/paperless/consume
 
