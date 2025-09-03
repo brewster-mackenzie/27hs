@@ -1,0 +1,17 @@
+services:
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=${DOCKER_PUID}
+      - PGID=${DOCKER_PGID}
+      - TZ=Europe/London
+    volumes:
+      - ./config:/config
+    ports:
+      - 8123:8123 #optional
+    devices:
+      - /path/to/device:/path/to/device #optional
+    restart: unless-stopped
+
