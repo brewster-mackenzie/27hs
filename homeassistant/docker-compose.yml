@@ -1,7 +1,5 @@
 volumes:
   config:
-  mqtt5-config:
-  mqtt5-data:
 
 services:
   homeassistant:
@@ -35,7 +33,7 @@ services:
     container_name: zigbee2mqtt
     restart: unless-stopped
     depends_on:
-      - mqtt
+      - mqtt5
     network_mode: host   # easiest way for discovery in Home Assistant
     volumes:
       - ./z2m-data:/app/data
