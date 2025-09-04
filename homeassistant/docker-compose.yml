@@ -1,6 +1,7 @@
 volumes:
   config:
   mqtt5-config:
+  mqtt5-data:
 
 services:
   homeassistant:
@@ -20,9 +21,11 @@ services:
     container_name: mqtt5
     hostname: mqtt5
     volumes:
-      - mqtt5-config:/mosquitto/config/
+      - ./mqtt5-config:/mosquitto/config/
+      - ./mqtt5-data:/mosquitto/data/
     ports:
       - 1883:1883
+      - 9001:9001
     networks:
       - default
     restart: unless-stopped
