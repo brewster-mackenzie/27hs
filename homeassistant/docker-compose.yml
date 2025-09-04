@@ -20,7 +20,7 @@ services:
     container_name: mqtt5
     hostname: mqtt5
     volumes:
-      - ./mqtt5-config:/mosquitto/config/
+      - mqtt5-config:/mosquitto/config/
     ports:
       - 1883:1883
     networks:
