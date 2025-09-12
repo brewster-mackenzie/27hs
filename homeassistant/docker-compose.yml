@@ -51,7 +51,7 @@ services:
       - "./signal-cli-config:/home/.local/share/signal-cli" #map "signal-cli-config" folder on host system into docker container. the folder contains the password and cryptographic keys when a new number is registered
 
   wyoming:
-    image: rhasspy/wyoming:latest
+    image: rhasspy/wyoming-whisper:latest
     container_name: wyoming
     restart: unless-stopped
     ports:
