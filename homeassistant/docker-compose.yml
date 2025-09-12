@@ -55,7 +55,7 @@ services:
     container_name: wyoming
     restart: unless-stopped
     ports:
-      - "10700:10700"   # Change host port if needed
+      - "10300:10300"   # Change host port if needed
     environment:
       - WHISPER_MODEL=tiny-int8
 
