@@ -60,7 +60,7 @@ services:
       - WHISPER_MODEL=tiny-int8
 
   piper:
-    image: lscr.io/linuxserver/piper:1.6.2
+    image: lscr.io/linuxserver/piper:1.6.3-ls76
     container_name: piper
     restart: unless-stopped
     ports:
