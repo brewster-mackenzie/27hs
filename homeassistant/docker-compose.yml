@@ -34,7 +34,8 @@ services:
     restart: unless-stopped
     depends_on:
       - mqtt5
-    network_mode: host   # easiest way for discovery in Home Assistant
+    ports:
+      - "7031:8080"
     volumes:
       - ./z2m-data:/app/data
     environment:
@@ -44,10 +45,8 @@ services:
     image: bbernhard/signal-cli-rest-api:latest
     environment:
       - MODE=json-rpc #supported modes: json-rpc, native, normal
+      - PORT=8080
       #- AUTO_RECEIVE_SCHEDULE=0 22 * * * #enable this parameter on demand (see description below)
-    network_mode: host
-    ports:
-      - "7030:8080" #map docker port 8080 to host port 8080.
     volumes:
       - "./signal-cli-config:/home/.local/share/signal-cli" #map "signal-cli-config" folder on host system into docker container. the folder contains the password and cryptographic keys when a new number is registered
   
