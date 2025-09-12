@@ -51,19 +51,21 @@ services:
       - "./signal-cli-config:/home/.local/share/signal-cli" #map "signal-cli-config" folder on host system into docker container. the folder contains the password and cryptographic keys when a new number is registered
 
   wyoming:
-    image: rhasspy/wyoming-whisper:latest
+    image: lscr.io/linuxserver/faster-whisper:latest
     container_name: wyoming
     restart: unless-stopped
     ports:
       - "10700:10700"   # Change host port if needed
+    environment:
+      - WHISPER_MODEL=tiny-int8
 
   piper:
-    image: rhasspy/wyoming-piper:latest
+    image: lscr.io/linuxserver/piper:latest
     container_name: piper
     restart: unless-stopped
     ports:
       - "10200:10200"   # Change host port if needed
     volumes:
-      - ./piper-data:/data
+      - ./piper-data:/config
     environment:
       - PIPER_VOICE=en_US-amy-low
