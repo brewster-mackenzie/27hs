@@ -11,7 +11,7 @@ services:
   immich:
     container_name: ${STACK_NAME}-immich
     hostname: immich
-    image: ghcr.io/immich-app/immich-server:v1.120.2
+    image: ghcr.io/immich-app/immich-server:v2.0.1
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
