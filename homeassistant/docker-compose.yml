@@ -1,0 +1,71 @@
+volumes:
+  config:
+
+services:
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=${DOCKER_PUID}
+      - PGID=${DOCKER_PGID}
+      - TZ=Europe/London
+    volumes:
+      - config:/config
+    restart: unless-stopped
+
+  mqtt5:
+    image: eclipse-mosquitto
+    container_name: mqtt5
+    hostname: mqtt5
+    volumes:
+      - ./mqtt5-config:/mosquitto/config/
+      - ./mqtt5-data:/mosquitto/data/
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - default
+    restart: unless-stopped
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    depends_on:
+      - mqtt5
+    ports:
+      - "7031:8080"
+    volumes:
+      - ./z2m-data:/app/data
+    environment:
+      - TZ=Europe/London
+
+  signal-cli-rest-api:
+    image: bbernhard/signal-cli-rest-api:latest
+    environment:
+      - MODE=json-rpc #supported modes: json-rpc, native, normal
+      - PORT=8080
+      #- AUTO_RECEIVE_SCHEDULE=0 22 * * * #enable this parameter on demand (see description below)
+    volumes:
+      - "./signal-cli-config:/home/.local/share/signal-cli" #map "signal-cli-config" folder on host system into docker container. the folder contains the password and cryptographic keys when a new number is registered
+
+  wyoming:
+    image: lscr.io/linuxserver/faster-whisper:latest
+    container_name: wyoming
+    restart: unless-stopped
+    ports:
+      - "10300:10300"   # Change host port if needed
+    environment:
+      - WHISPER_MODEL=tiny-int8
+
+  piper:
+    image: lscr.io/linuxserver/piper:1.6.3-ls75
+    container_name: piper
+    restart: unless-stopped
+    ports:
+      - "10200:10200"   # Change host port if needed
+    volumes:
+      - ./piper-data:/config
+    environment:
+      - PIPER_VOICE=en_US-amy-low
