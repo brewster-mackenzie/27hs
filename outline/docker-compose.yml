@@ -1,0 +1,65 @@
+networks:
+  green:
+    external: true
+    name: ${STACK_NAME}-green
+
+volumes:
+  outline-data:
+  outline-db-data:
+
+services:
+  outline:
+    container_name: ${STACK_NAME}-outline
+    image: docker.getoutline.net/outlinewiki/outline:latest
+    volumes:
+      - outline-data:/var/lib/outline/data
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      NODE_ENV: production
+      URL: https://org.27hs.co.uk
+      PORT: ${PORTS_OUTLINE}
+      WEB_CONCURRENCY: 2
+      SECRET_KEY: ${OUTLINE_SECRET_KEY}
+      UTILS_SECERT: ${OUTLINE_UTILS_SECRET}
+      DEFAULT_LANGAUGE: en_GB
+      DATABASE_URL: postgres://user:pass@postgres:5432/outline
+      REDIS_URL: redis://redis:6379
+      FILE_STORAGE: local
+      FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
+      OIDC_ISSUER_URL: ${OUTLINE_OIDC_ISSUER_URL}
+      OIDC_CLIENT_ID: ${OUTLINE_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OUTLINE_OIDC_CLIENT_SECRET}
+      OIDC_DISABLE_REDIRECT: 1
+      OIDC_DISPLAY_NAME: SSO
+      SMTP_SERVICE: ${OUTLINE_SMTP_SERVICE}
+      SMTP_USERNAME: ${OUTLINE_SMTP_USERNAME}
+      SMTP_PASSWORD: ${OUTLINE_SMTP_PASSWORD}
+      SMTP_FROM_EMAIL: ${OUTLINE_SMTP_FROM_EMAIL}
+
+  redis:
+    image: redis
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+
+  postgres:
+    image: postgres:18
+    volumes:
+      - outline-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "outline", "-U", "user"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: ${OUTLINE_POSTGRES_PASSWORD}
+      POSTGRES_DB: outline
+
