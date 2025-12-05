@@ -11,6 +11,10 @@ services:
   outline:
     container_name: ${STACK_NAME}-outline
     image: docker.getoutline.com/outlinewiki/outline:latest
+    networks:
+      - green
+    ports:
+      - ${PORTS_OUTLINE}:3000
     volumes:
       - outline-data:/var/lib/outline/data
     depends_on:
@@ -19,7 +23,7 @@ services:
     environment:
       NODE_ENV: production
       URL: https://org.27hs.co.uk
-      PORT: ${PORTS_OUTLINE}
+      PORT: 3000
       WEB_CONCURRENCY: 2
       SECRET_KEY: ${OUTLINE_SECRET_KEY}
       UTILS_SECRET: ${OUTLINE_UTILS_SECRET}
@@ -43,6 +47,8 @@ services:
 
   redis:
     image: redis
+    networks:
+      - green
     volumes:
       - ./redis.conf:/redis.conf
     command: ["redis-server", "/redis.conf"]
@@ -54,6 +60,8 @@ services:
 
   postgres:
     image: docker.io/library/postgres:18
+    networks:
+      - green
     volumes:
       - outline-db-data:/var/lib/postgresql
     healthcheck:
