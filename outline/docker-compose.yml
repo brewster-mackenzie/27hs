@@ -22,7 +22,7 @@ services:
       PORT: ${PORTS_OUTLINE}
       WEB_CONCURRENCY: 2
       SECRET_KEY: ${OUTLINE_SECRET_KEY}
-      UTILS_SECERT: ${OUTLINE_UTILS_SECRET}
+      UTILS_SECRET: ${OUTLINE_UTILS_SECRET}
       DEFAULT_LANGAUGE: en_GB
       DATABASE_URL: postgres://user:pass@postgres:5432/outline
       REDIS_URL: redis://redis:6379
