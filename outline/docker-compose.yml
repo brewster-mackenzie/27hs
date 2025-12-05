@@ -28,9 +28,11 @@ services:
       REDIS_URL: redis://redis:6379
       FILE_STORAGE: local
       FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
-      OIDC_ISSUER_URL: ${OUTLINE_OIDC_ISSUER_URL}
       OIDC_CLIENT_ID: ${OUTLINE_OIDC_CLIENT_ID}
       OIDC_CLIENT_SECRET: ${OUTLINE_OIDC_CLIENT_SECRET}
+      OIDC_AUTH_URI: https://auth.27hs.co.uk/webman/sso/SSOOauth.cgi
+      OIDC_TOKEN_URI: https://auth.27hs.co.uk/webman/sso/SSOAccessToken.cgi
+      OIDC_USERINFO_URI: https://auth.27hs.co.uk/webman/sso/SSOUserInfo.cgi
       OIDC_DISABLE_REDIRECT: 1
       OIDC_DISPLAY_NAME: SSO
       SMTP_SERVICE: ${OUTLINE_SMTP_SERVICE}
