@@ -24,7 +24,8 @@ services:
       SECRET_KEY: ${OUTLINE_SECRET_KEY}
       UTILS_SECRET: ${OUTLINE_UTILS_SECRET}
       DEFAULT_LANGAUGE: en_GB
-      DATABASE_URL: postgres://user:pass@postgres:5432/outline
+      PGSSLMODE: disable
+      DATABASE_URL: postgres://user:${OUTLINE_POSTGRES_PASSWORD}@postgres:5432/outline
       REDIS_URL: redis://redis:6379
       FILE_STORAGE: local
       FILE_STORAGE_LOCAL_ROOT_DIR: /var/lib/outline/data
