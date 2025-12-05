@@ -1,6 +1,3 @@
 [submodule "onlyoffice"]
 	path = onlyoffice
 	url = ssh://git@github.com/brewster-mackenzie/onlyoffice-Docker-CommunityServer.git
-[submodule "AppFlowy-Cloud"]
-	path = AppFlowy-Cloud
-	url = ssh://git@github.com/brewster-mackenzie/AppFlowy-Cloud
