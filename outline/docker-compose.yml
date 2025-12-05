@@ -10,7 +10,7 @@ volumes:
 services:
   outline:
     container_name: ${STACK_NAME}-outline
-    image: docker.getoutline.net/outlinewiki/outline:latest
+    image: docker.getoutline.com/outlinewiki/outline:latest
     volumes:
       - outline-data:/var/lib/outline/data
     depends_on:
