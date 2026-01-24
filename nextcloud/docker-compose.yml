@@ -17,6 +17,7 @@ services:
       DOCKER_API_VERSION: 1.43
       SKIP_DOMAIN_VALIDATION: true
       APACHE_PORT: 7025
+      APACHE_IP_BINDING: 100.100.10.1
 
 volumes: # If you want to store the data on a different drive, see https://github.com/nextcloud/all-in-one#how-to-store-the-filesinstallation-on-a-separate-drive
   nextcloud_aio_mastercontainer:
