@@ -19,3 +19,8 @@ volumes: # If you want to store the data on a different drive, see https://githu
     name: nextcloud_aio_mastercontainer # This line is not allowed to be changed as otherwise the built-in backup solution will not work
   nextcloud_aio_nextcloud_datadir: 
     name: nextcloud_aio_nextcloud_datadir
+
+networks:
+  27hs-green:
+    name: 27hs-green
+    external: true
