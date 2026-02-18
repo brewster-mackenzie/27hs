@@ -5,19 +5,17 @@ services:
     hostname: rocketchat
     restart: unless-stopped
     environment:
-      - MONGO_URL=mongodb://mongodb:27017/rocketchat?replicaSet=rs0&ssl=false
-      - MONGO_OPLOG_URL=mongodb://mongodb:27017/local?replicaSet=rs0&ssl=false
+      - MONGO_URL=mongodb://mongodb:27017/rocketchat
+      - MONGO_OPLOG_URL=mongodb://mongodb:27017/local
       - ROOT_URL=https://chat.27hs.co.uk
       - PORT=3000
       - DEPLOY_METHOD=docker
-      - OVERWRITE_SETTING_Show_Setup_Wizard=completed
     depends_on:
       - mongodb
     ports:
       - "${PORTS_ROCKETCHAT}:3000"
     volumes:
       - rocketchat-uploads:/app/uploads
-      - rocketchat-scripts:/app/scripts
     networks:
       - default
       - green
@@ -32,17 +30,17 @@ services:
     container_name: ${STACK_NAME}-rocketchat-mongodb
     hostname: mongodb
     restart: unless-stopped
-    environment:
-      - MONGO_INITDB_DATABASE=rocketchat
-      - MONGO_REPLICA_SET_NAME=rs0
-    command: mongod --replSet rs0 --oplogSize 128 --storageEngine wiredTiger
+    command: mongod --smallfiles --oplogSize 128 --replSet rs0
     volumes:
       - mongodb-data:/data/db
-      - mongodb-dump:/dump
-    ports:
-      - "27017:27017"
     networks:
       - green
+
+  mongodb-init-replica:
+    image: mongo:8.2.5-noble 
+    command: 'mongo mongo/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
+    depends_on: 
+      - mongo 
 
 networks:
   green:
@@ -51,7 +49,5 @@ networks:
 
 volumes:
   mongodb-data:
-  mongodb-dump:
-  rocketchat-scripts:
   rocketchat-uploads:
 
