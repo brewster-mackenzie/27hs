@@ -10,6 +10,7 @@ services:
       - ROOT_URL=https://chat.27hs.co.uk
       - PORT=3000
       - DEPLOY_METHOD=docker
+      - OVERWRITE_SETTING_Show_Setup_Wizard=completed
     depends_on:
       - mongodb
     ports:
