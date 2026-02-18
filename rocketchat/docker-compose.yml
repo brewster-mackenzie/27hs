@@ -28,7 +28,7 @@ services:
       #  - "traefik.http.routers.rocketchat.tls.certresolver=letsencrypt"
 
   mongodb:
-    image: mongo:8.5.2-noble
+    image: mongo:8.2.5-noble
     container_name: ${STACK_NAME}-rocketchat-mongodb
     hostname: mongodb
     restart: unless-stopped
