@@ -35,5 +35,5 @@ services:
 
 networks:
   default:
-    external:
       name: matrix_net
+      external: true
