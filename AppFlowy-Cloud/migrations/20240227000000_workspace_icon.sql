@@ -1,1 +1,0 @@
-ALTER TABLE af_workspace ADD COLUMN icon TEXT NOT NULL DEFAULT '';

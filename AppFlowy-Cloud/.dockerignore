@@ -1,9 +1,0 @@
-.env
-.dockerignore
-spec.yaml
-**/target
-target/
-deploy/
-tests/
-docker/Dockerfile
-scripts/

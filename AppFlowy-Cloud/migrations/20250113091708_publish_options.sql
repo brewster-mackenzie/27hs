@@ -1,3 +1,0 @@
-ALTER TABLE af_published_collab
-ADD COLUMN comments_enabled BOOLEAN NOT NULL DEFAULT TRUE,
-ADD COLUMN duplicate_enabled BOOLEAN NOT NULL DEFAULT TRUE;

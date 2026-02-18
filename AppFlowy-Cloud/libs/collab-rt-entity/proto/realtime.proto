@@ -1,7 +1,0 @@
-syntax = "proto3";
-package realtime_proto;
-
-message HttpRealtimeMessage {
-  string device_id = 1;
-  bytes payload = 2;
-}
