@@ -2,14 +2,10 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/settings/
 
-title: 27HS Services
+title: Welcome Home
 
 layout:
   Hosted Services:
     header: false
     style: row
-    columns: 3
-
-providers:
-  openweathermap: 
-  weatherapi: weatherapiapikey
+    columns: 1

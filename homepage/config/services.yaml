@@ -3,53 +3,43 @@
 # https://gethomepage.dev/configs/services/
 
 - Hosted Services:
-  - Media:
-    - Jellyfin:
-        icon: sh-jellyfin
-        href: https://media.27hs.co.uk
-        description: films, TV & books
+  - Media server:
+      icon: mdi-television
+      href: https://media.27hs.co.uk
+      description: Enjoy a selection of films, TV shows, books, music and videos from the YouTube archive. 
 
-    - TubeArchivist:
-        icon: sh-tube-archivist
-        href: https://youtube.27hs.co.uk
-        description: archive YouTube videos
+  - YouTube archive:
+      icon: mdi-youtube-tv
+      href: https://youtube.27hs.co.uk
+      description: Browse and schedule downloads in the YouTube archiver
 
-    - Immich:
-        icon: sh-immich
-        href: https://pics.27hs.co.uk
-        description: photos & videos
+  - Photos and videos:
+      icon: mdi-camera
+      href: https://pics.27hs.co.uk
+      description: Access your personal collection of photos & videos
 
-    - qBitTorrent:
-        icon: sh-qbittorrent
-        href: https://bt.27hs.co.uk
-        description: torrent client
-  
-  - Personal:
-    
-    - Recipes:
-        icon: mdi-noodles
-        href: https://ikew.27hs.co.uk/recipes 
-        description: recipes
-  
-    - Paperless:
-        icon: sh-paperless-ngx
-        href: https://docs.27hs.co.uk
-        description: documents
+  - Torrents:
+      icon: mdi-skull-crossbones-outline
+      href: https://bt.27hs.co.uk
+      description: Aaaargh!
 
+  - Documents:
+      icon: mdi-invoice-list
+      href: https://docs.27hs.co.uk
+      description: Access your personal letters, invoices, forms, etc.
 
-  - Administration: 
+  - Goblin:
+      icon: mdi-cloud
+      href: https://admin.27hs.co.uk
+      description: Manage the containers hosted on Goblin
 
-    - Portainer:
-        icon: sh-portainer
-        href: https://admin.27hs.co.uk
-        description: manage containers
+  - Nexus:
+      icon: mdi-creation
+      href: https://nexus.27hs.co.uk
+      description: Enter the Nexus to perform administrative tasks
 
-    - SSO:
-        icon: sh-pocket-id
-        href: https://auth.27hs.co.uk
-        description: manage realm
+  - CCTV:
+      icon: mdi-cctv
+      href: https://cctv.27hs.co.uk
+      description: Real-time monitoring and management of all CCTV cameras and recordings
 
-    - File Browser:
-        icon: sh-file-browser
-        href: https://files.27hs.co.uk
-        description: manage files

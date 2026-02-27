@@ -1,0 +1,61 @@
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html
+server_name: "matrix.27hs.co.uk"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    resources:
+    - compress: false
+      names:
+      - client
+      - federation
+    tls: false
+    type: http
+    x_forwarded: true
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+log_config: "/data/matrix.27hs.co.uk.log.config"
+media_store_path: /data/media_store
+registration_shared_secret: "ZAGsFP9Yd+_=pzJR;sLA*O^*m35+Y~SK4ezZp_x*h97HlS7DS0"
+report_stats: true
+macaroon_secret_key: "Gm_,7B~w#@^@50Q&CXZTcIn^Cba;;:Az9geUUOH8VUk-yzRNQ:"
+form_secret: "Ywx,^QTqn;WS7CNrp^=@;vaaFx9SYyd3Sfgx9w~33#TS7fWI#u"
+signing_key_path: "/data/matrix.27hs.co.uk.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"
+turn_uris:
+- "turn:matrix.27hs.co.uk:3478?transport=udp"
+- "turn:matrix.27hs.co.uk:3478?transport=tcp"
+- "turns:matrix.27hs.co.uk:3478?transport=udp"
+- "turns:matrix.27hs.co.uk:3478?transport=tcp"
+turn_shared_secret: "6urvC8RPvRfniGvNggjJBbX2L0BTYz3c"
+turn_user_lifetime: 1h
+turn_allow_guests: true
+oidc_providers:
+  - idp_id: nexus
+    idp_name: Nexus 
+    issuer: "https://auth.27hs.co.uk/webman/sso"
+    client_id: "d09cf3b82d19685a8330aa1a554de6d1"
+    client_secret: "7ni4oLJ4TaPXcsnvn8yc7z32StrxBy7q"
+    scopes: ["openid"]
+    token_endpoint: "https://auth.27hs.co.uk/webman/sso/SSOAccessToken.cgi"
+    userinfo_endpoint: "https://auth.27hs.co.uk/webman/sso/SSOUserInfo.cgi"
+    authorization_endpoint: "https://auth.27hs.co.uk/webman/sso/SSOOauth.cgi"
+    user_mapping_provider:
+      config:
+        localpart_template: "{{ user.username.split('@')[0] }}"
+        display_name_template: "{{ user.username.split('@')[0] }}"
+
+
+# vim:ft=yaml

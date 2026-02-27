@@ -1,0 +1,6 @@
+services:
+  fluffychat:
+    image: aceberg/fluffychat:latest 
+    ports: 
+      - ${PORTS_FLUFFYCHAT}:80
+
